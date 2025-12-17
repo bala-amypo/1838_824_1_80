@@ -2,7 +2,8 @@ package com.example.demo.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-
+import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 
 @Entity
@@ -12,11 +13,11 @@ public class AcademicEvent {
     private Long branchId;
     private String title;
     private String eventType;
-    private String startDate;
-    private String endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private String location;
     private String description;
-    private String submittedAt;
+    private LocalDateTime submittedAt;
     public void ValidateAndInitializer() {
         this.submittedAt = LocalDateTime.now();
         this.startDate = LocalDate.now();
@@ -24,6 +25,8 @@ public class AcademicEvent {
         if (startDate != null && endDate != null && startDate.isAfter(endDate)) {
             throw new RuntimeException("ValidationException: startDate must be before or equal to endDate.");
     }
+    }
+    
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

@@ -1,5 +1,5 @@
 
 
-public class MergeEventsRequest {
+// public class MergeEventsRequest {
 
-}
+// }
