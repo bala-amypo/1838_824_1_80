@@ -24,8 +24,8 @@ public class AcademicEvent {
         if (startDate != null && endDate != null && startDate.isAfter(endDate)) {
             throw new RuntimeException("ValidationException: startDate must be before or equal to endDate.");
     }
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getid() { return id; }
+    public void setid(Long id) { this.id = id; }
 
     public Long getBranchId() { return branchId; }
     public void setBranchId(Long branchId) { this.branchId = branchId; }
