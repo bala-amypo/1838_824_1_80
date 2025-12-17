@@ -1,7 +1,7 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.Id;
-import jakarta.persistence.lastSync
+import jakarta.persistence.lastSyncAt;
 
 @Entity
 public class BranchProfile {
