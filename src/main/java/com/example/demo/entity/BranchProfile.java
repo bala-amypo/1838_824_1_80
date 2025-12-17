@@ -15,5 +15,7 @@ public class BranchProfile {
     private String lastSyncAt;
     private Boolean active;
     @PrePersist
-    
+    protected void onCreate() {
+        this.lastSyncAt=LocalDateTime.now();
+    }
 }
