@@ -54,7 +54,7 @@ public class AcademicEvent {
     public LocalDateTime getSubmittedAt() { return submittedAt; }
     public void setSubmittedAt(LocalDateTime submittedAt) { this.submittedAt = submittedAt; }
     
-    public AcademicEvent(Long id, Long branchId, String title, String eventType, String startDate, String endDate, String location, String description, String submittedAt) {
+    public AcademicEvent(Long id, Long branchId, String title, String eventType, LocalDate startDate, LocalDate endDate, String location, String description, LocalDateTime submittedAt) {
         this.id = id;
         this.branchId = branchId;
         this.title = title;
