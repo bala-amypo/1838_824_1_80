@@ -12,7 +12,8 @@ public class BranchProfile {
     private String branchCode;
     private String branchName;
     private String contactEmail;
-    @Prepersist
     private String lastSyncAt;
     private Boolean active;
+    @PrePersist
+    
 }
