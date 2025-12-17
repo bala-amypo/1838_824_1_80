@@ -14,9 +14,6 @@ public class AcademicEvent {
     private String location;
     private String description;
     private String submittedAt;
-    public AcademicEvent() {
-
-    }
     public void ValidateAndInitializer() {
         this.submittedAt = LocalDateTime.now();
         if (startDate != null && endDate != null && startDate.isAfter(endDate)) {
@@ -54,6 +51,13 @@ public class AcademicEvent {
         this.branchId = branchId;
         this.title = title;
         this.eventType = eventType;
-        
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.location = location;
+        this.description = description;
+        this.submittedAt = submittedAt;
+    }
+    public AcademicEvent() {
+
     }
 }
