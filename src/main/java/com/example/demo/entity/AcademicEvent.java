@@ -48,4 +48,6 @@ public class AcademicEvent {
 
     public LocalDateTime getSubmittedAt() { return submittedAt; }
     public void setSubmittedAt(LocalDateTime submittedAt) { this.submittedAt = submittedAt; }
+    
+    public AcademicEvent()
 }
