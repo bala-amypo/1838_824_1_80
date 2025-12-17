@@ -6,6 +6,7 @@ import jakarta.persistence.lastSyncAt;
 @Entity
 public class BranchProfile {
     @Id
+    @GenerateValue(strategy)
     private Long id;
     private String branchCode;
     private String branchName;
