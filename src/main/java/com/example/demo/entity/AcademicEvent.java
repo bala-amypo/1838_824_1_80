@@ -1,10 +1,13 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
 
 
 @Entity
 public class AcademicEvent {
+    @Id
     private Long id;
     private Long branchId;
     private String title;
@@ -15,6 +18,7 @@ public class AcademicEvent {
     private String description;
     private String submittedAt;
     public void ValidateAndInitializer() {
+        this.submittedAt = LocalDateTime.now();
         this.submittedAt = LocalDateTime.now();
         if (startDate != null && endDate != null && startDate.isAfter(endDate)) {
             throw new RuntimeException("ValidationException: startDate must be before or equal to endDate.");
