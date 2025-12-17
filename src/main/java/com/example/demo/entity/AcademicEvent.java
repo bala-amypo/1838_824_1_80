@@ -20,6 +20,6 @@ public class AcademicEvent {
     public void ValidateAndInitializer() {
         this.submittedAt = LocalDateTime.now();
         if (startDate != null && endDate != null && startDate.isAfter(endDate)) {
-            throw new RuntimeException("ValidationException: startDate must be before or equal to endDate.")
+            throw new RuntimeException("ValidationException: startDate must be before or equal to endDate.");
     }
 }
