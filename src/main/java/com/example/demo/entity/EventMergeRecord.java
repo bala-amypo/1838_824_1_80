@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedType;
 @Entity
 public class EventMergeRecord {
     @Id
+
     private Long id;
     private String sourceEventIds;
     private String mergedTitle;
@@ -23,7 +24,7 @@ public class EventMergeRecord {
     public void ValidateAndInitializer() {
         this.createdAt = LocalDateTime.now();
         this.mergedStartDate = LocalDate.now();
-        this mergedEndDate = LocalDate.now();
+        this .mergedEndDate = LocalDate.now();
     }
 
     public Long getId() {
