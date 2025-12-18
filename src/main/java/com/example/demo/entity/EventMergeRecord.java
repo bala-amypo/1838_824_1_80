@@ -1,38 +1,62 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.Id;
 import jakarta.persistence.Entity;
-import java.time.LocalDateTime;
-import java.time.LocalDate;
+import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GeneratedType;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.PrePersist;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 public class EventMergeRecord {
-    @Id
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String sourceEventIds;
     private String mergedTitle;
     private LocalDate mergedStartDate;
     private LocalDate mergedEndDate;
     private String mergeReason;
-    
 
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private LocalDateTime createdAt;
-    public void ValidateAndInitializer() {
+
+    @PrePersist
+    public void validateAndInitialize() {
         this.createdAt = LocalDateTime.now();
-        this.mergedStartDate = LocalDate.now();
-        this .mergedEndDate = LocalDate.now();
+
+        if (this.mergedStartDate == null) {
+            this.mergedStartDate = LocalDate.now();
+        }
+
+        if (this.mergedEndDate == null) {
+            this.mergedEndDate = LocalDate.now();
+        }
     }
 
+    // Constructors
+    public EventMergeRecord() {}
+
+    public EventMergeRecord(
+            String sourceEventIds,
+            String mergedTitle,
+            LocalDate mergedStartDate,
+            LocalDate mergedEndDate,
+            String mergeReason
+    ) {
+        this.sourceEventIds = sourceEventIds;
+        this.mergedTitle = mergedTitle;
+        this.mergedStartDate = mergedStartDate;
+        this.mergedEndDate = mergedEndDate;
+        this.mergeReason = mergeReason;
+    }
+
+    // Getters & Setters
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getSourceEventIds() {
@@ -78,20 +102,4 @@ public class EventMergeRecord {
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-    public EventMergeRecord(LocalDateTime createdAt, Long id, String mergeReason, LocalDate mergedEndDate, LocalDate mergedStartDate, String mergedTitle, String sourceEventIds) {
-        this.createdAt = createdAt;
-        this.id = id;
-        this.mergeReason = mergeReason;
-        this.mergedEndDate = mergedEndDate;
-        this.mergedStartDate = mergedStartDate;
-        this.mergedTitle = mergedTitle;
-        this.sourceEventIds = sourceEventIds;
-    }
-    public EventMergeRecord() {
-    
-}
 }
