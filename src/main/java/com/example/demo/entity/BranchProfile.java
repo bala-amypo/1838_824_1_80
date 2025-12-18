@@ -3,6 +3,7 @@ package com.example.demo.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.LocalDateTime;
+import java.lang.Boolean;
 
 @Entity
 public class BranchProfile {
