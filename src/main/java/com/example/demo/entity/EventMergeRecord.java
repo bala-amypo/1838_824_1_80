@@ -4,6 +4,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Entity;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GeneratedType;
 
 @Entity
 public class EventMergeRecord {
@@ -14,6 +16,7 @@ public class EventMergeRecord {
     private LocalDate mergedStartDate;
     private LocalDate mergedEndDate;
     private String mergeReason;
+    @GeneratedValue(strategy=GenerationType.Cre)
     private LocalDateTime createdAt;
     public void ValidateAndInitializer() {
         this.createdAt = LocalDateTime.now();
