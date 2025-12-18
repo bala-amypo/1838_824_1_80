@@ -1,5 +1,5 @@
 package com.example.demo.entity;
-
+import java.time.LocalDateTime;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -14,20 +14,6 @@ public class UserAccount {
     private String role;
     private String department;
     private LocalDateTime createdAt;
-
-    public void ValidateAndInitializer() {
-        this.createdAt = LocalDateTime.now();
-    }
-
-    public UserAccount(LocalDateTime createdAt, String department, String email, String fullName, Long id, String password, String role) {
-        this.createdAt = createdAt;
-        this.department = department;
-        this.email = email;
-        this.fullName = fullName;
-        this.id = id;
-        this.password = password;
-        this.role = role;
-    }
 
     public void ValidateAndInitializer() {
         this.createdAt = LocalDateTime.now();
@@ -84,9 +70,16 @@ public class UserAccount {
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public UserAccount(LocalDateTime createdAt, String department, String email, String fullName, Long id, String password, String role) {
         this.createdAt = createdAt;
+        this.department = department;
+        this.email = email;
+        this.fullName = fullName;
+        this.id = id;
+        this.password = password;
+        this.role = role;
+    }
+    public void setCreatedAt(LocalDateTime createdAt) {
     }
     
 
