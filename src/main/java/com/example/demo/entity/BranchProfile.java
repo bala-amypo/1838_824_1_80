@@ -21,8 +21,8 @@ public class BranchProfile {
         return id;
     }
 
-    public void setBranchName(String branchName) {
-        this.branchName = branchName;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getBranchCode() {
@@ -61,13 +61,15 @@ public class BranchProfile {
         this.active = active;
     }
 
-    public BranchProfile(String branchCode, String branchName, String contactEmail, Boolean active) {
+    public BranchProfile(Long id, String branchCode, String branchName, String contactEmail, Boolean active) {
+        this.id = id;
         this.branchCode = branchCode;
         this.branchName = branchName;
         this.contactEmail = contactEmail;
         this.active = active;
     }
     public BranchProfile() {
+        
     }
 
 }
