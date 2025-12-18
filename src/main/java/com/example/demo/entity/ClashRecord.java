@@ -23,21 +23,11 @@ public class ClashRecord {
     //     this.detectedAt = LocalDateTime.now();
 
     // }
-    public ClashRecord(String clashType, String details, LocalDateTime detectedAt, Long eventAId, Long eventBId, Long id, Boolean resolved, String severity) {
-        this.clashType = clashType;
-        this.details = details;
-        this.detectedAt = detectedAt;
-        this.eventAId = eventAId;
-        this.eventBId = eventBId;
-        this.id = id;
-        this.resolved = resolved;
-        this.severity = severity;
-    }
 
-    public void ValidateAndInitializer() {
-        this.detectedAt =  detectedAt;
+    // public void ValidateAndInitializer() {
+    //     this.detectedAt =  detectedAt;
 
-    }
+    // }
 
     public Long getId() {
         return id;
@@ -102,5 +92,19 @@ public class ClashRecord {
     public void setResolved(Boolean resolved) {
         this.resolved = resolved;
     }
-    
+
+      public ClashRecord(String clashType, String details, LocalDateTime detectedAt, Long eventAId, Long eventBId, Long id, Boolean resolved, String severity) {
+        this.clashType = clashType;
+        this.details = details;
+        this.detectedAt = detectedAt;
+        this.eventAId = eventAId;
+        this.eventBId = eventBId;
+        this.id = id;
+        this.resolved = resolved;
+        this.severity = severity;
+    }
+    public ClashRecord(){
+
+    }
+
 }
