@@ -16,11 +16,8 @@ public class EventMergeRecord {
     private LocalDate mergedStartDate;
     private LocalDate mergedEndDate;
     private String mergeReason;
+    
 
-    @PrePersist
-    public void PrePersist() {
-        this.createdAt = 
-    }
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private LocalDateTime createdAt;
     public void ValidateAndInitializer() {
@@ -28,4 +25,9 @@ public class EventMergeRecord {
         this.mergedStartDate = LocalDate.now();
         this mergedEndDate = LocalDate.now();
     }
+    @PrePersist
+    public void PrePersist() {
+        this.createdAt = LocalDateTime.now();
+    }
+    
 }
