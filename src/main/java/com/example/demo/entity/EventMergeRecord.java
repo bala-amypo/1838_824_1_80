@@ -4,7 +4,9 @@
 
 public class EventMergeRecord {
     private Long id;
-    private Long eventBId;
-    private Long eventAId;
-    private 
+    private String sourceEventIds;
+    private String mergedTitle;
+    private LocalDate mergedStartDate;
+    private LocalDate mergedEndDate;
+    private
 }
