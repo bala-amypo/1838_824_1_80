@@ -5,5 +5,8 @@ import com.example.demo.entity.AcademicEvent;
 
 @Service
 public interface AcademicCalenderService{
-    public AcademicCalender 
+    public AcademicCalender createEvent(AcademicEvent event);
+    public AcademicCalender getEventByBranch(Long branchId);
+    public AcademicCalender updateEvent(Long id, AcademicEvent event);
+    public AcademicCalender getEventById(Long )
 }
