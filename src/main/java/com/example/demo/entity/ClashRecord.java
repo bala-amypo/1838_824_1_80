@@ -19,10 +19,10 @@ public class ClashRecord {
     private LocalDateTime detectedAt;
     private Boolean resolved;
 
-    public void ValidateAndInitializer() {
-        this.detectedAt = LocalDateTime.now();
+    // public void ValidateAndInitializer() {
+    //     this.detectedAt = LocalDateTime.now();
 
-    }
+    // }
     public ClashRecord(String clashType, String details, LocalDateTime detectedAt, Long eventAId, Long eventBId, Long id, Boolean resolved, String severity) {
         this.clashType = clashType;
         this.details = details;
@@ -35,7 +35,7 @@ public class ClashRecord {
     }
 
     public void ValidateAndInitializer() {
-        this.detectedAt = LocalDateTime.now();
+        this.detectedAt =  detectedAt;
 
     }
 
