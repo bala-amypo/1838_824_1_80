@@ -1,6 +1,6 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.entity;
+import jakarta.persistence.ntity;
 import jakarta.persistence.Id;
 import jakarta.persistence.LocalDateTime;
 
@@ -12,6 +12,7 @@ public class BranchProfile {
     private String branchName;
     private String contactEmail;
     private LocalDateTime lastSyncAt;
-    private Boolean active 
+    private Boolean active;
+
 
 }
