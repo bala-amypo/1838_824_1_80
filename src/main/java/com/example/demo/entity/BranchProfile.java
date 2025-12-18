@@ -1,6 +1,6 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.ntity;
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.LocalDateTime;
 
@@ -13,6 +13,8 @@ public class BranchProfile {
     private String contactEmail;
     private LocalDateTime lastSyncAt;
     private Boolean active;
-
+    public void ValidateAndInitializer() {
+        this.lastSyncAt = LocalDateTime.now();
+    }
 
 }
