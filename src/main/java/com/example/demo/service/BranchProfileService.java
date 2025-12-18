@@ -7,5 +7,6 @@ public interface BranchProfileService {
     public BranchProfile createBranch(BranchProfile branch);
     public BranchProfile updateBranchStatus(Long id, boolean active);
     public BranchProfile getAllBranches();
-    public 
+    public BranchProfile getBranchById(Long id);
+    public BranchProfile findByBranchCode(String branchCode);
 }
