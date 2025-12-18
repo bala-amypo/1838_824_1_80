@@ -20,33 +20,12 @@ public class HarmonizedCalender {
     private LocalDate effectiveFrom;
     private String eventsJson;
 
-    public void ValidateAndInitializer() {
-        this.effectiveTo = LocalDate.now();
-        this.effectiveFrom = LocalDate.now();
-        this.generatedAt = LocalDateTime.now();
-    }
+    // public void ValidateAndInitializer() {
+    //     this.effectiveTo = LocalDate.now();
+    //     this.effectiveFrom = LocalDate.now();
+    //     this.generatedAt = LocalDateTime.now();
+    // }
     
-    package com.example.demo.entity;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
-
-@Entity
-public class HarmonizedCalender {
-
-    @Id
-    private Long id;
-    private String title;
-    private String generatedBy;
-    private LocalDateTime generatedAt;
-    private LocalDate effectiveTo;
-    private LocalDate effectiveFrom;
-    private String eventsJson;
 
     public HarmonizedCalender(LocalDate effectiveFrom, LocalDate effectiveTo, String eventsJson, LocalDateTime generatedAt, String generatedBy, Long id, String title) {
         this.effectiveFrom = effectiveFrom;
@@ -58,11 +37,11 @@ public class HarmonizedCalender {
         this.title = title;
     }
 
-    public void ValidateAndInitializer() {
-        this.effectiveTo = LocalDate.now();
-        this.effectiveFrom = LocalDate.now();
-        this.generatedAt = LocalDateTime.now();
-    }
+    // public void ValidateAndInitializer() {
+    //     this.effectiveTo = LocalDate.now();
+    //     this.effectiveFrom = LocalDate.now();
+    //     this.generatedAt = LocalDateTime.now();
+    // }
 
     public Long getId() {
         return id;
@@ -119,6 +98,8 @@ public class HarmonizedCalender {
     public void setEventsJson(String eventsJson) {
         this.eventsJson = eventsJson;
     }
-    
+      public HarmonizedCalender() {
+         
+    }
 
 }
