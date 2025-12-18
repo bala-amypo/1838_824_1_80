@@ -25,10 +25,6 @@ public class EventMergeRecord {
         this.mergedStartDate = LocalDate.now();
         this mergedEndDate = LocalDate.now();
     }
-    @PrePersist
-    public void PrePersist() {
-        this.createdAt = LocalDateTime.now();
-    }
 
     public Long getId() {
         return id;
