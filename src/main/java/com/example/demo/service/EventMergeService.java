@@ -1,4 +1,9 @@
 package com.example.demo.service;
 
-import jakarta.persistence.service;
-import
+import jakarta.persistence.Service;
+import com.example.demo.entity.EventMergeRecord;
+
+@Service
+public interface EventMergeService {
+    public EventMerge 
+}
