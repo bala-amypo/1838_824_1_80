@@ -23,5 +23,84 @@ public class ClashRecord {
         this.detectedAt = LocalDateTime.now();
 
     }
+    public ClashRecord(String clashType, String details, LocalDateTime detectedAt, Long eventAId, Long eventBId, Long id, Boolean resolved, String severity) {
+        this.clashType = clashType;
+        this.details = details;
+        this.detectedAt = detectedAt;
+        this.eventAId = eventAId;
+        this.eventBId = eventBId;
+        this.id = id;
+        this.resolved = resolved;
+        this.severity = severity;
+    }
+
+    public void ValidateAndInitializer() {
+        this.detectedAt = LocalDateTime.now();
+
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getEventAId() {
+        return eventAId;
+    }
+
+    public void setEventAId(Long eventAId) {
+        this.eventAId = eventAId;
+    }
+
+    public Long getEventBId() {
+        return eventBId;
+    }
+
+    public void setEventBId(Long eventBId) {
+        this.eventBId = eventBId;
+    }
+
+    public String getClashType() {
+        return clashType;
+    }
+
+    public void setClashType(String clashType) {
+        this.clashType = clashType;
+    }
+
+    public String getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(String severity) {
+        this.severity = severity;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    public LocalDateTime getDetectedAt() {
+        return detectedAt;
+    }
+
+    public void setDetectedAt(LocalDateTime detectedAt) {
+        this.detectedAt = detectedAt;
+    }
+
+    public Boolean getResolved() {
+        return resolved;
+    }
+
+    public void setResolved(Boolean resolved) {
+        this.resolved = resolved;
+    }
     
 }
