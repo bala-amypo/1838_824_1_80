@@ -1,8 +1,8 @@
 package com.example.demo.repository;
 
-import com.example.demo.entity.BranchProfile;
+import com.example.demo.entity.ClashRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BranchProfileRepository extends JpaRepository<BranchProfile, Long>{
+public interface ClashRecordRepository extends JpaRepository<ClashRecord, Long>{
 
 }
