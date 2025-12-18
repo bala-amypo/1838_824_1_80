@@ -1,8 +1,8 @@
 package com.example.demo.repository;
 
-import com.eample.demo.entity.BranchProfileEntity;
+import com.example.demo.entity.BranchProfile;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BranchProfileRepository extends JpaRepository<BranchProfileEntity, Long>{
-    
+public interface BranchProfileRepository extends JpaRepository<BranchProfile, Long>{
+
 }
