@@ -8,5 +8,5 @@ public interface EventMergeService {
     public EventMerge mergeEvents(List<Long> eventIds, string reason);
     public EventMerge getAllMergeRrecord();
     public EventMerge getMergeRecordById(Long id);
-    public EventMerge getMergeRecordByDate(LocalDate start, LocalDate end)
+    public EventMerge getMergeRecordByDate(LocalDate start, LocalDate end);
 }
