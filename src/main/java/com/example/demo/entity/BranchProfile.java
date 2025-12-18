@@ -17,5 +17,57 @@ public class BranchProfile {
     public void ValidateAndInitializer() {
         this.lastSyncAt = LocalDateTime.now();
     }
+    public Long getId() {
+        return id;
+    }
+
+    public void setBranchName(String branchName) {
+        this.branchName = branchName;
+    }
+
+    public String getBranchCode() {
+        return branchCode;
+    }
+
+    public void setBranchCode(String branchCode) {
+        this.branchCode = branchCode;
+    }
+
+    public String getBranchName() {
+        return branchName;
+    }
+
+    public void setBranchName(String branchName) {
+        this.branchName = branchName;
+    }
+
+    public String getContactEmail() {
+        return contactEmail;
+    }
+
+    public void setContactEmail(String contactEmail) {
+        this.contactEmail = contactEmail;
+    }
+
+    public LocalDateTime getLastSyncAt() {
+        return lastSyncAt;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public BranchProfile(String branchCode, String branchName, String contactEmail, Boolean active) {
+        this.branchCode = branchCode;
+        this.branchName = branchName;
+        this.contactEmail = contactEmail;
+        this.active = active;
+    }
+    public BranchProfile() {
+    }
 
 }
