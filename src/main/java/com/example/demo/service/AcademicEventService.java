@@ -8,5 +8,6 @@ public interface AcademicCalenderService{
     public AcademicCalender createEvent(AcademicEvent event);
     public AcademicCalender getEventByBranch(Long branchId);
     public AcademicCalender updateEvent(Long id, AcademicEvent event);
-    public AcademicCalender getEventById(Long )
+    public AcademicCalender getEventById(Long id);
+    public AcademicCalender getAllEvents();
 }
