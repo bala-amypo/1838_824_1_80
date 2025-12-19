@@ -25,7 +25,7 @@ public class AcademicEventController {
     }
     @GetMapping("/{id}")
     public AcademicEvent getEventById(@PathVariable Long id) {
-        return academicEventService.getEvent
+        return academicEventService.getEventById
     }
 
 }
