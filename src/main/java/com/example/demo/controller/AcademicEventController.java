@@ -6,4 +6,7 @@ import com.example.demo.entity.AcademicEvent;
 import com.example.demo.services.AcademicEventService;
 
 @RestController
-@RequestMapping()
+@RequestMapping("/api/academicevents")
+public class AcademicEventController {
+    
+}
