@@ -9,14 +9,14 @@ import com.example.demo.entity.BranchProfile;
 import com.example.demo.services.BranchProfileService;
 
 @RestController
-@RequestMapping("/api/events")
-public class AcademicEventController {
+@RequestMapping("/api/branch")
+public class BranchProfileController {
 
     @autowired
-    private AcademicEventService academicEventService;
+    private BranchProfileService academicEventService;
 
     @PostMapping
-    public AcademicEvent createEvent(@RequestBody AcademicEvent event) {
+    public BranchProfile createEvent(@RequestBody AcademicEvent event) {
         return academicEventService.createEvent(event);
     }
     @GetMapping
