@@ -17,5 +17,5 @@ public class AcademicEventServiceImpl implements AcademicEventService {
         return aer.save(Event)
     }
     @Override
-    public <AcademicEvent> 
+    public List<AcademicEvent>getEventsBy 
 }
