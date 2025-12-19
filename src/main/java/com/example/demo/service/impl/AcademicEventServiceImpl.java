@@ -14,7 +14,7 @@ public class AcademicEventServiceImpl implements AcademicEventService {
     private AcademicEventRepository aer;
     @Override
     public AcademicEvent createAcademicEvent(AcademicEvent Event){
-        return aer.save(Event)
+        return aer.save(Event);
     }
     @Override
     public List<AcademicEvent>getEventsByBranch(Long branchId){
