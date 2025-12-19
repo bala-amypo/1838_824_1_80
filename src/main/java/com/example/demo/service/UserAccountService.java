@@ -10,5 +10,5 @@ public interface UserAccountService {
     public UserAccount register(UserAccount user);
     public UserAccount gertUser(Long id);
     public UserAccount getAllUsers();
-    public UserAccount find
+    public UserAccount findByEmail(String email)
 }
