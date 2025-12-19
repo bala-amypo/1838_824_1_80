@@ -4,6 +4,7 @@ import com.example.demo.entity.BranchProfile;
 import jakarta.persistence.Service;
 import java.util.List;
 
+@Service
 public interface BranchProfileService {
     public BranchProfile createBranch(BranchProfile branch);
     public BranchProfile updateBranchStatus(Long id, boolean active);
