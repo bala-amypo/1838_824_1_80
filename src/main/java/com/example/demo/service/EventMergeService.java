@@ -1,12 +1,20 @@
 package com.example.demo.service;
 
+import java.util.List;
+import java.time.LocalDate;
 
-import com.example.demo.entity.EventMergeRecord;
-
+import com.example.demo.entity.EventMerge;
 
 public interface EventMergeService {
-    public EventMerge mergeEvents(List<Long> eventIds, String reason);
-    public EventMerge getAllMergeRrecord();
-    public EventMerge getMergeRecordById(Long id);
-    public EventMerge getMergeRecordByDate(LocalDate start, LocalDate end);
+
+    List<EventMerge> getAllMergedEvents();
+
+    EventMerge getMergedEventById(Long id);
+
+    EventMerge mergeEvents(
+            List<String> sourceEventIds,
+            String mergedTitle,
+            LocalDate startDate,
+            LocalDate endDate
+    );
 }
