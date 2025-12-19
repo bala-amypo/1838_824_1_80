@@ -5,3 +5,5 @@ import com.example.demo.repository.AcademicEventRepository;
 import com.example.demo.service.AcademicEventService;
 import org.springframework.sterotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+
+@Service
