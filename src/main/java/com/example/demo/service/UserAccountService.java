@@ -7,5 +7,8 @@ import jakarta.persistence.Service;
 
 @Service
 public interface UserAccountService {
-    public 
+    public UserAccount register(UserAccount user);
+    public UserAccount gertUser(Long id);
+    public UserAccount getAllUsers();
+    public UserAccount find
 }
