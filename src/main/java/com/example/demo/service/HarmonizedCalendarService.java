@@ -4,7 +4,7 @@ import com.example.demo.entity.HarmonizedCalendar;
 import jakarta.persistence.Service;
 
 @Service
-public interface HarmoonizedCalendarService {
+public interface HarmonizedCalendarService {
     public HarmonizedCalendar generateHarmonizedCalendar(String title, String generatedBy);
     public HarmonizedCalendar getCalendarById(Long id);
     public HarmonizedCalendar getAllCalendars();
