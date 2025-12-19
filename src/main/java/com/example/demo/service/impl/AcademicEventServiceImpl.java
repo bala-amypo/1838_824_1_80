@@ -21,5 +21,5 @@ public class AcademicEventServiceImpl implements AcademicEventService {
         return academicEventRepository.findByBranchId(branchId);
     } 
     @Override
-    public AcademicEvent
+    public AcademicEvent updateEvent
 }
