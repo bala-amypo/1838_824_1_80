@@ -11,5 +11,7 @@ public class AcademicEventServiceImpl implements AcademicEventService {
 
     @Autowired
     AcademicEventRepository aer;
-
+    public AcademicEvent createAcademicEvent(AcademicEvent Event){
+        return aer.save(Event)
+    }
 }
