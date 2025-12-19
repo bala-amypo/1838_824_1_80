@@ -1,10 +1,10 @@
 package com.example.demo.controller;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.autowired;
-import org.springframework.beans.factory.annotation.GetMapping;
-import org.springframework.beans.factory.annotation.PostMapping;
-import org.springframework.beans.factory.annotation.PatchMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import com.example.demo.entity.BranchProfile;
 import com.example.demo.services.BranchProfileService;
 
