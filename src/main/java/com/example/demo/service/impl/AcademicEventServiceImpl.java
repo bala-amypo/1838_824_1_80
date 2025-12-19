@@ -39,4 +39,9 @@ public class AcademicEventServiceImpl implements AcademicEventService {
         event.setId(id);
         return academicEventRepository.save(event);
     }
+    @Override
+    public List<AcademicEvent> getEventByBranch(Long branchId) {
+        return academicEventRepository.findByBranchId(branchId);
+    }
+
 }
