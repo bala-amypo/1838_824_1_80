@@ -6,4 +6,4 @@ import com.example.demo.service.BranchProfileService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BranchProfileServiceImpl 
+public class BranchProfileServiceImpl implements BranchProfile
