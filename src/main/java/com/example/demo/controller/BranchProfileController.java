@@ -9,7 +9,7 @@ import com.example.demo.entity.BranchProfile;
 import com.example.demo.services.BranchProfileService;
 
 @RestController
-@RequestMapping("/api/academicevents")
+@RequestMapping("/api/events")
 public class AcademicEventController {
 
     @autowired
