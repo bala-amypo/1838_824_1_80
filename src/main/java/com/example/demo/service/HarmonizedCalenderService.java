@@ -5,5 +5,8 @@ import jakarta.persistence.Service;
 
 @Service
 public interface HarmoonizedCalenderService {
-    public HarmonizedCalender generateHarmonized
+    public HarmonizedCalender generateHarmonizedCalender(String title, String generatedBy);
+    public HarmonizedCalender getCalenderById(Long id);
+    public HarmonizedCalender getAllCalendars();
+    public HarmonizedCalender getCalendars
 }
