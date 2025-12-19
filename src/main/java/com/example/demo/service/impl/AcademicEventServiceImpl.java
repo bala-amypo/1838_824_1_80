@@ -7,3 +7,4 @@ import org.springframework.sterotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
+public class AcademicEventServiceImpl implements AcademicEventService
