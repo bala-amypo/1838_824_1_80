@@ -5,7 +5,7 @@ import com.example.demo.entity.EventMergeRecord;
 
 
 public interface EventMergeService {
-    public EventMerge mergeEvents(List<Long> eventIds, string reason);
+    public EventMerge mergeEvents(List<Long> eventIds, String reason);
     public EventMerge getAllMergeRrecord();
     public EventMerge getMergeRecordById(Long id);
     public EventMerge getMergeRecordByDate(LocalDate start, LocalDate end);
