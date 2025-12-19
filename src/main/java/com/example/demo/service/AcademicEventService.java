@@ -10,5 +10,5 @@ public interface AcademicEventService{
     public AcademicEvent getEventByBranch(Long branchId);
     public AcademicEvent updateEvent(Long id, AcademicEvent event);
     public AcademicEvent getEventById(Long id);
-    public AcademicEvent getAllEvents();
+    public List<AcademicEvent> getAllEvents();
 }

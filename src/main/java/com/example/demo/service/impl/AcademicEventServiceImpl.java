@@ -1,46 +1,42 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.AcademicEvent;
-import java.util.List;
 import com.example.demo.repository.AcademicEventRepository;
 import com.example.demo.service.AcademicEventService;
-import org.springframework.sterotype.Service;
+
+import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 @Service
 public class AcademicEventServiceImpl implements AcademicEventService {
 
+    private final AcademicEventRepository academicEventRepository;
+
     @Autowired
-    private AcademicEventRepository aer;
-    @Override
-    public AcademicEvent createAcademicEvent(AcademicEvent Event){
-        return aer.save(Event);
+    public AcademicEventServiceImpl(AcademicEventRepository academicEventRepository) {
+        this.academicEventRepository = academicEventRepository;
     }
-    @Override
-    public List<AcademicEvent>getEventsByBranch(Long branchId){
-        return academicEventRepository.findByBranchId(branchId);
-    } 
-    @Override
-    public AcademicEvent updateEvent(Long id, AcademicEvent event) {
-        AcademicEvent existingEvent = academicEventRepository.findById(id).orElseThrow(() -> new RuntimeException("Academic Event not found with id: " + id));
 
-        existingEvent.setTitle(event.getTitle());
-        existingEvent.setEventType(event.getEventType());
-        existingEvent.setStartDate(event.getStartDate());
-        existingEvent.setEndDate(event.getEndDate());
-        existingEvent.setLocation(event.getLocation());
-        existingEvent.setDescription(event.getDescription());
-        existingEvent.setBranchId(event.getBranchId());
-
-        return academicEventRepository.save(existingEvent);
-    }
-     @Override
-    public AcademicEvent getEventById(Long id) {
-        return academicEventRepository.findById(id).orElseThrow(() -> new RuntimeException("Academic Event not found with id: " + id));
+    @Override
+    public AcademicEvent createEvent(AcademicEvent event) {
+        return academicEventRepository.save(event);
     }
 
     @Override
     public List<AcademicEvent> getAllEvents() {
         return academicEventRepository.findAll();
+    }
+
+    @Override
+    public AcademicEvent getEventById(Long id) {
+        return academicEventRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public AcademicEvent updateEvent(Long id, AcademicEvent event) {
+        event.setId(id);
+        return academicEventRepository.save(event);
     }
 }
