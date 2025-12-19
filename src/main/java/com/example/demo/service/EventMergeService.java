@@ -3,7 +3,7 @@ package com.example.demo.service;
 import java.util.List;
 import java.time.LocalDate;
 
-import com.example.demo.entity.EventMerge;
+import com.example.demo.entity.EventMergeRecord;
 
 public interface EventMergeService {
 

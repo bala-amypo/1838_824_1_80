@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.HarmonizedCalendar; 
+import java.time.LocalDate;
 
 
 
@@ -9,4 +10,5 @@ public interface HarmonizedCalendarService {
     public HarmonizedCalendar getCalendarById(Long id);
     public HarmonizedCalendar getAllCalendars();
     public HarmonizedCalendar getCalendarsWithinRange(LocalDate start, LocalDate end);
+    public void generateCalendar(LocalDate startDate, LocalDate endDate);
 }
