@@ -33,7 +33,7 @@ public class AcademicEventController {
     }
     @PutMapping("/{id}")
     public AcademicEvent updateEvent(@PathVariable Longid, @RequestBody AcademicEvent event){
-        return academicEventService.updateEvent(id)
+        return academicEventService.updateEvent(id,event);
     }
 
 }
