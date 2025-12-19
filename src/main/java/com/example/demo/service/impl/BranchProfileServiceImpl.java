@@ -13,39 +13,21 @@ import com.example.demo.service.BranchProfileService;
 public class BranchProfileServiceImpl implements BranchProfileService {
 
     @Autowired
-    private BranchProfileRepository branchProfileRepository;
+    private BranchProfileRepository repository;
 
     @Override
-    public BranchProfile createBranch(BranchProfile branch) {
-        return branchProfileRepository.save(branch);
+    public BranchProfile create(BranchProfile branchProfile) {
+        return repository.save(branchProfile);
     }
 
     @Override
-    public BranchProfile updateBranchStatus(Long id, boolean active) {
-
-        BranchProfile branch = branchProfileRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Branch not found with id: " + id));
-
-        branch.setActive(active);
-
-        return branchProfileRepository.save(branch);
+    public List<BranchProfile> getAll() {
+        return repository.findAll();
     }
 
     @Override
-    public List<BranchProfile> getAllBranches() {
-        return branchProfileRepository.findAll();
-    }
-
-    @Override
-    public BranchProfile getBranchById(Long id) {
-        return branchProfileRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Branch not found with id: " + id));
-    }
-
-    @Override
-    public BranchProfile findByBranchCode(String branchCode) {
-        return branchProfileRepository.findByBranchCode(branchCode)
-                .orElseThrow(() -> new RuntimeException(
-                        "Branch not found with code: " + branchCode));
+    public BranchProfile getById(Long id) {
+        return repository.findById(id).orElse(null);
     }
 }
+
