@@ -7,11 +7,11 @@ import com.example.demo.entity.EventMergeRecord;
 
 public interface EventMergeService {
 
-    List<EventMerge> getAllMergedEvents();
+    public List<EventMergeRecord> getAllMergedEvents();
 
-    EventMerge getMergedEventById(Long id);
+    public EventMergeRecord getMergedEventById(Long id);
 
-    EventMerge mergeEvents(
+    public EventMergeRecord mergeEvents(
             List<String> sourceEventIds,
             String mergedTitle,
             LocalDate startDate,
