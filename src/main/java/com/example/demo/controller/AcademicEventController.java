@@ -18,7 +18,10 @@ public class AcademicEventController {
     @PostMapping
     public AcademicEvent createEvent(@RequestBody AcademicEvent event) {
         return academicEventService.createEvent(event);
-
+    }
+    @GetMapping
+    public List<AcademicEvent> getAllEvents() {
+        return academicEvent
     }
 
 }
