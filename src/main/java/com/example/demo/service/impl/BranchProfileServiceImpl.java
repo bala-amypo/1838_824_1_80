@@ -29,5 +29,10 @@ public class BranchProfileServiceImpl implements BranchProfileService {
     public BranchProfile getById(Long id) {
         return repository.findById(id).orElse(null);
     }
+
+    @Override
+    public BranchProfile findByBranchCode(String branchCode) {
+        return repository.findByBranchCode(branchCode);
+    }
 }
 

@@ -22,8 +22,8 @@ public class BranchProfileController {
     private BranchProfileService branchProfileService;
 
     @PostMapping
-    public BranchProfile create(@RequestBody BranchProfile branch) {
-        return branchProfileService.create(branch);
+    public BranchProfile create(@RequestBody BranchProfile branchProfile) {
+        return branchProfileService.create(branchProfile);
     }
 
     @GetMapping
@@ -35,4 +35,10 @@ public class BranchProfileController {
     public BranchProfile getById(@PathVariable Long id) {
         return branchProfileService.getById(id);
     }
+
+    @GetMapping("/code/{branchCode}")
+    public BranchProfile getByBranchCode(@PathVariable String branchCode) {
+        return branchProfileService.findByBranchCode(branchCode);
+    }
 }
+
