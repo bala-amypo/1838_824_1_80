@@ -29,7 +29,11 @@ public class AcademicEventController {
     }
     @GetMapping("/branch/{branchId}")
     public List<academicEvent> getEventsByBranch(@PathVariable Long branchId){
-        return academic
+        return academicEventService.getEventsByBranch(branchId);
+    }
+    @PutMapping("/{id}")
+    public AcademicEvent updateEvent(@PathVariable Longid, @RequestBody AcademicEvent event){
+        return academicEventService.updateEvent(id)
     }
 
 }
