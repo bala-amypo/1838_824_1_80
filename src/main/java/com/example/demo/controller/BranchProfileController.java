@@ -12,28 +12,30 @@ import com.example.demo.services.BranchProfileService;
 @RequestMapping("/api/branch")
 public class BranchProfileController {
 
-    @autowired
-    private BranchProfileService academicEventService;
-
+    
+    @Autowired
+    private BranchProfileService branchProfileService;
     @PostMapping
-    public BranchProfile createEvent(@RequestBody AcademicEvent event) {
-        return academicEventService.createEvent(event);
+    public BranchProfile createBranch(@RequestBody BranchProfile branch) {
+        return branchProfileService.createBranch(branch);
     }
     @GetMapping
-    public List<AcademicEvent> getAllEvents() {
-        return academicEventService.getAllEvents();
+    public List<BranchProfile> getAllBranches() {
+        return branchProfileService.getAllBranches();
     }
     @GetMapping("/{id}")
-    public AcademicEvent getEventById(@PathVariable Long id) {
-        return academicEventService.getEventById(id);
+    public BranchProfile getBranchById(@PathVariable Long id) {
+        return branchProfileService.getBranchById(id);
     }
-    @GetMapping("/branch/{branchId}")
-    public List<academicEvent> getEventsByBranch(@PathVariable Long branchId){
-        return academicEventService.getEventsByBranch(branchId);
+    @GetMapping("/code/{branchCode}")
+    public BranchProfile getBranchByCode(@PathVariable String branchCode) {
+        return branchProfileService.findByBranchCode(branchCode);
     }
-    @PutMapping("/{id}")
-    public AcademicEvent updateEvent(@PathVariable Longid, @RequestBody AcademicEvent event){
-        return academicEventService.updateEvent(id,event);
+    @PatchMapping("/{id}/status")
+    public BranchProfile updateBranchStatus(
+            @PathVariable Long id,
+            @RequestParam boolean active) {
+        return branchProfileService.updateBranchStatus(id, active);
     }
 
 }
