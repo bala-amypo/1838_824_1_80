@@ -5,10 +5,10 @@ import java.util.List;
 import com.example.demo.entity.AcademicEvent;
 
 @Service
-public interface AcademicCalenderService{
-    public AcademicCalender createEvent(AcademicEvent event);
-    public AcademicCalender getEventByBranch(Long branchId);
-    public AcademicCalender updateEvent(Long id, AcademicEvent event);
-    public AcademicCalender getEventById(Long id);
-    public AcademicCalender getAllEvents();
+public interface AcademicEventService{
+    public AcademicEvent createEvent(AcademicEvent event);
+    public AcademicEvent getEventByBranch(Long branchId);
+    public AcademicEvent updateEvent(Long id, AcademicEvent event);
+    public AcademicEvent getEventById(Long id);
+    public AcademicEvent getAllEvents();
 }
