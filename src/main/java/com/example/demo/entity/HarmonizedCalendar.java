@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 
 @Entity
-public class HarmonizedCalender {
+public class HarmonizedCalendar {
 
     @Id
     private Long id;
@@ -27,7 +27,7 @@ public class HarmonizedCalender {
     // }
     
 
-    public HarmonizedCalender(LocalDate effectiveFrom, LocalDate effectiveTo, String eventsJson, LocalDateTime generatedAt, String generatedBy, Long id, String title) {
+    public HarmonizedCalendar(LocalDate effectiveFrom, LocalDate effectiveTo, String eventsJson, LocalDateTime generatedAt, String generatedBy, Long id, String title) {
         this.effectiveFrom = effectiveFrom;
         this.effectiveTo = effectiveTo;
         this.eventsJson = eventsJson;
@@ -98,7 +98,7 @@ public class HarmonizedCalender {
     public void setEventsJson(String eventsJson) {
         this.eventsJson = eventsJson;
     }
-      public HarmonizedCalender() {
+      public HarmonizedCalendar() {
          
     }
 
