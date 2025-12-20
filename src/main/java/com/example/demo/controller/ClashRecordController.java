@@ -10,9 +10,9 @@ import java.util.List;
 @RequestMapping("/api/clashes")
 public class ClashRecordController {
 
-    private final ClashRecordService service;
+    private final ClashDetectionService service;
 
-    public ClashRecordController(ClashRecordService service) {
+    public ClashRecordController(ClashDetectionService service) {
         this.service = service;
     }
 
