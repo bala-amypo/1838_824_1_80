@@ -1,13 +1,17 @@
 package com.example.demo.service;
 
-
 import com.example.demo.entity.ClashRecord;
+import java.util.List;
 
+public interface ClashRecordService {
 
-public interface ClashDetectionService {
-    public ClashRecord logClash(ClashRecord clash);
-    public ClashRecord getClashesForEvent(Long eventId);
-    public ClashRecord resolveClash(Long clashId);
-    public ClashRecord getUnresolvedClashes();
-    public ClashRecord getAllClashes();
+    public ClashRecord logClash(ClashRecord clashRecord);
+
+    public ClashRecord resolveClash(Long id);
+
+    public List<ClashRecord> getClashesByEventId(Long eventId);
+
+    public List<ClashRecord> getUnresolvedClashes();
+
+    public List<ClashRecord> getAllClashes();
 }

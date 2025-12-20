@@ -1,0 +1,50 @@
+package com.example.demo.service.impl;
+
+import com.example.demo.entity.ClashRecord;
+import com.example.demo.repository.ClashRecordRepository;
+import com.example.demo.service.ClashDetectionService;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Service
+public class ClashRecordServiceImpl implements ClashRecordService {
+
+    private final ClashRecordRepository repository;
+
+    public ClashRecordServiceImpl(ClashRecordRepository repository) {
+        this.repository = repository;
+    }
+
+    @Override
+    public ClashRecord logClash(ClashRecord clashRecord) {
+        clashRecord.setResolved(false);
+        clashRecord.setLoggedAt(LocalDateTime.now());
+        return repository.save(clashRecord);
+    }
+
+    @Override
+    public ClashRecord resolveClash(Long id) {
+        ClashRecord clash = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Clash not found"));
+
+        clash.setResolved(true);
+        return repository.save(clash);
+    }
+
+    @Override
+    public List<ClashRecord> getClashesByEventId(Long eventId) {
+        return repository.findByEventId(eventId);
+    }
+
+    @Override
+    public List<ClashRecord> getUnresolvedClashes() {
+        return repository.findByResolvedFalse();
+    }
+
+    @Override
+    public List<ClashRecord> getAllClashes() {
+        return repository.findAll();
+    }
+}
