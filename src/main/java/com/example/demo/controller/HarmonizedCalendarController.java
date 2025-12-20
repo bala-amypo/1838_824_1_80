@@ -38,9 +38,7 @@ public class HarmonizedCalendarController {
 
     // GET /range - Get calendars within date range
     @GetMapping("/range")
-    public List<HarmonizedCalendar> getCalendarsInRange(
-            @RequestParam LocalDate start,
-            @RequestParam LocalDate end) {
+    public List<HarmonizedCalendar> getCalendarsInRange(@RequestParam LocalDate start, @RequestParam LocalDate end) {
         return service.getCalendarsInRange(start, end);
     }
 }

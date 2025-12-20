@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
 public interface BranchProfileRepository extends JpaRepository<BranchProfile, Long>{
-    Optional<BranchProfile> findByBranchCode(String branchCode);
+    public Optional<BranchProfile> findByBranchCode(String branchCode);
 }
