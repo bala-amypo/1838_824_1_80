@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class ClashRecordServiceImpl implements ClashRecordService {
+public class ClashDetectionServiceImpl implements ClashDetectionService {
 
     private final ClashRecordRepository repository;
 
