@@ -31,7 +31,7 @@ public class UserAccountServiceImpl implements UserAccountService {
         }
 
         // Dummy JWT token (replace with real JWT later)
-        return "JWT_TOKEN_FOR_" + user.getFirstname();
+        return "JWT_TOKEN_FOR_" + user.getFullname();
     }
 
     @Override

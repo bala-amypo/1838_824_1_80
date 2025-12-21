@@ -8,7 +8,7 @@ public interface UserAccountService {
 
     public UserAccount register(UserAccount user);
 
-    public String login(String firstname, String password);
+    public String login(String fullname, String password);
 
     public List<UserAccount> getAllUsers();
 
