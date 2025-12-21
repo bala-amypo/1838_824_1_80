@@ -24,7 +24,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 
     @Override
     public String login(String firstname, String password) {
-        UserAccount user = repository.findByFirstname(firstname).orElseThrow(() -> new RuntimeException("Invalid firstname"));
+        UserAccount user = repository.findByFullname(firstname).orElseThrow(() -> new RuntimeException("Invalid fullname"));
 
         if (!user.getPassword().equals(password)) {
             throw new RuntimeException("Invalid password");
