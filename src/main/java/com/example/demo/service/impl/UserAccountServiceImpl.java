@@ -23,16 +23,15 @@ public class UserAccountServiceImpl implements UserAccountService {
     }
 
     @Override
-    public String login(String username, String password) {
-        UserAccount user = repository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("Invalid username"));
+    public String login(String firstname, String password) {
+        UserAccount user = repository.findByFirstname(firstname).orElseThrow(() -> new RuntimeException("Invalid firstname"));
 
         if (!user.getPassword().equals(password)) {
             throw new RuntimeException("Invalid password");
         }
 
         // Dummy JWT token (replace with real JWT later)
-        return "JWT_TOKEN_FOR_" + user.getUsername();
+        return "JWT_TOKEN_FOR_" + user.getFirstname();
     }
 
     @Override
@@ -42,7 +41,6 @@ public class UserAccountServiceImpl implements UserAccountService {
 
     @Override
     public UserAccount getUserById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
     }
 }
