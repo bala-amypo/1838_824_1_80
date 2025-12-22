@@ -33,7 +33,7 @@ public class BranchProfileServiceImpl implements BranchProfileService {
 
     @Override
     public BranchProfile findByBranchCode(String branchCode) {
-        return branchProfileRepository.findByBranchCode(branchCode).orElse(null);
+        return BranchProfileRepository.findByBranchCode(branchCode).orElse(null);
     }
 
 }
