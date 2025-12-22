@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class ClashDetectionServiceImpl implements ClashDetectionService {
 
-    private final ClashRecordRepository repository;
+    private final ClashRecordRepository clashRecordRepository;
 
     public ClashDetectionServiceImpl(ClashRecordRepository repository) {
         this.repository = repository;
@@ -21,12 +21,12 @@ public class ClashDetectionServiceImpl implements ClashDetectionService {
     public ClashRecord logClash(ClashRecord clashRecord) {
         ClashRecord.setResolved(false);
         ClashRecord.setLoggedAt(LocalDateTime.now());
-        return repository.save(ClashRecord);
+        return clashRecordrepository.save(ClashRecord);
     }
 
     @Override
     public ClashRecord resolveClash(Long id) {
-        ClashRecord clash = repository.findById(id)
+        ClashRecord clash = clashRecordRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Clash not found"));
 
         clash.setResolved(true);
