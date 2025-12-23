@@ -13,5 +13,5 @@ public interface HarmonizedCalendarService {
 
     public List<HarmonizedCalendar> getAllCalendars();
 
-    public List<HarmonizedCalendar> getCalendarsInRange(LocalDate effectiveFrom, LocalDate end);
+    public List<HarmonizedCalendar> getCalendarsInRange(LocalDate effectiveFrom, LocalDate effectiveTo);
 }
