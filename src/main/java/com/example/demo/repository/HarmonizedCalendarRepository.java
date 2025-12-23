@@ -9,4 +9,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 @Repository
 public interface HarmonizedCalendarRepository extends JpaRepository<HarmonizedCalendar, Long>{
     public List<HarmonizedCalendar> findByStartDateGreaterThanEqualAndEndDateLessThanEqual(LocalDate start, LocalDate end);
-}
+}   

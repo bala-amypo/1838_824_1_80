@@ -36,7 +36,6 @@ public class HarmonizedCalendarServiceImpl implements HarmonizedCalendarService 
 
     @Override
     public List<HarmonizedCalendar> getCalendarsInRange(LocalDate start, LocalDate end) {
-        return repository
-                .findByStartDateGreaterThanEqualAndEndDateLessThanEqual(start, end);
+        return repository.findByStartDateGreaterThanEqualAndEndDateLessThanEqual(start, end);
     }
 }
