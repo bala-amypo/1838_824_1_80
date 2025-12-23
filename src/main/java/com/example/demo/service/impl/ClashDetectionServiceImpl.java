@@ -14,7 +14,7 @@ public class ClashDetectionServiceImpl implements ClashDetectionService {
     private final ClashRecordRepository clashRecordRepository;
 
     public ClashDetectionServiceImpl(ClashRecordRepository repository) {
-        this.repository = repository;
+        this.clashRecordRepository = repository;
     }
 
     @Override
