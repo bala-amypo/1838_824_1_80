@@ -36,6 +36,7 @@ public class ClashDetectionServiceImpl implements ClashDetectionService {
     @Override
     public List<ClashRecord> getClashesByEventId(Long eventId) {
         return clashRecordRepository.findByEventAId(eventId);
+        return clashRecordRepository.findByEventBId(eventId)
     }
 
     @Override

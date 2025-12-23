@@ -8,6 +8,6 @@ import java.util.List;
 @Repository
 public interface ClashRecordRepository extends JpaRepository<ClashRecord, Long>{
     public List<ClashRecord> findByEventAId(Long eventAId);
-
+    public List<ClashRecord> findByEventBId(Long eventBId);
     public List<ClashRecord> findByResolvedFalse();
 }
