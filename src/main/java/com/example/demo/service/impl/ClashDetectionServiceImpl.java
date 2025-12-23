@@ -20,7 +20,7 @@ public class ClashDetectionServiceImpl implements ClashDetectionService {
     @Override
     public ClashRecord logClash(ClashRecord clashRecord) {
         clashRecord.setResolved(false);
-        clashRecord.setLoggedAt(LocalDateTime.now());
+        clashRecord.setDetectedAt(LocalDateTime.now());
         return clashRecordRepository.save(clashRecord);
     }
 
