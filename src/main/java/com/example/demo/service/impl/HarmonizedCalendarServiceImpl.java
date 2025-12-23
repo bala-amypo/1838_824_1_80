@@ -6,10 +6,12 @@ import com.example.demo.service.HarmonizedCalendarService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class HarmonizedCalendarServiceImpl implements HarmonizedCalendarService {
+public class HarmonizedCalendarServiceImpl
+        implements HarmonizedCalendarService {
 
     private final HarmonizedCalendarRepository repository;
 
@@ -17,6 +19,24 @@ public class HarmonizedCalendarServiceImpl implements HarmonizedCalendarService 
             HarmonizedCalendarRepository repository
     ) {
         this.repository = repository;
+    }
+
+    @Override
+    public HarmonizedCalendar generateCalendar(
+            HarmonizedCalendar calendar
+    ) {
+        calendar.setGeneratedAt(LocalDateTime.now());
+        return repository.save(calendar);
+    }
+
+    @Override
+    public HarmonizedCalendar getCalendarById(Long id) {
+        return repository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<HarmonizedCalendar> getAllCalendars() {
+        return repository.findAll();
     }
 
     @Override

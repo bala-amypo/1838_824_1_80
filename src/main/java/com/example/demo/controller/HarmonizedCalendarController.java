@@ -8,37 +8,41 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/harmonized-calendars")
+@RequestMapping("/api/calendars")
 public class HarmonizedCalendarController {
 
-    private final HarmonizedCalendarService harmonizedCalendarService;
+    private final HarmonizedCalendarService service;
 
-    public HarmonizedCalendarController(HarmonizedCalendarService harmonizedCalendarService) {
-        this.harmonizedCalendarService = harmonizedCalendarService;
+    public HarmonizedCalendarController(
+            HarmonizedCalendarService service
+    ) {
+        this.service = service;
     }
 
-    // POST /generate - Generate a harmonized calendar
-    @PostMapping("/generate")
+    @PostMapping
     public HarmonizedCalendar generateCalendar(
-            @RequestBody HarmonizedCalendar calendar) {
-        return harmonizedCalendarService.generateCalendar(calendar);
+            @RequestBody HarmonizedCalendar calendar
+    ) {
+        return service.generateCalendar(calendar);
     }
 
-    // GET /{id} - Get calendar by ID
     @GetMapping("/{id}")
-    public HarmonizedCalendar getCalendarById(@PathVariable Long id) {
-        return harmonizedCalendarService.getCalendarById(id);
+    public HarmonizedCalendar getCalendarById(
+            @PathVariable Long id
+    ) {
+        return service.getCalendarById(id);
     }
 
-    // GET / - List all calendars
     @GetMapping
     public List<HarmonizedCalendar> getAllCalendars() {
-        return harmonizedCalendarService.getAllCalendars();
+        return service.getAllCalendars();
     }
 
-    // GET /range - Get calendars within date range
     @GetMapping("/range")
-    public List<HarmonizedCalendar> getCalendarsInRange(@RequestParam LocalDate start, @RequestParam LocalDate end) {
-        return harmonizedCalendarService.getCalendarsInRange(start, end);
+    public List<HarmonizedCalendar> getCalendarsInRange(
+            @RequestParam LocalDate start,
+            @RequestParam LocalDate end
+    ) {
+        return service.getCalendarsInRange(start, end);
     }
 }
