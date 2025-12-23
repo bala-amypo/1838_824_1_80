@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserAccountServiceImpl implements UserAccountService {
+public class UserAccountServiceImpl
+        implements UserAccountService {
 
     private final UserAccountRepository repository;
 
@@ -25,15 +26,14 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Override
     public String login(String fullName, String password) {
 
-        UserAccount user = repository
-                .findByFullName(fullName)
+        UserAccount user = repository.findByFullName(fullName)
                 .orElseThrow(() -> new RuntimeException("Invalid full name"));
 
         if (!user.getPassword().equals(password)) {
             throw new RuntimeException("Invalid password");
         }
 
-        return "JWT_TOKEN_FOR_" + user.getFullName();
+        return "LOGIN_SUCCESS";
     }
 
     @Override

@@ -5,10 +5,9 @@ import com.example.demo.service.UserAccountService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/users")
 public class UserAccountController {
 
     private final UserAccountService service;
@@ -17,27 +16,25 @@ public class UserAccountController {
         this.service = service;
     }
 
-    // POST /auth/register - Register a new user
     @PostMapping("/register")
     public UserAccount register(@RequestBody UserAccount user) {
         return service.register(user);
     }
 
-    // POST /auth/login - Login and return JWT token
     @PostMapping("/login")
-    public Map<String, String> login(@RequestBody UserAccount user) {
-        String token = service.login(user.getFullName(), user.getPassword());
-        return Map.of("token", token);
+    public String login(
+            @RequestParam String fullName,
+            @RequestParam String password
+    ) {
+        return service.login(fullName, password);
     }
 
-    // GET /auth/users - ADMIN only
-    @GetMapping("/users")
+    @GetMapping
     public List<UserAccount> getAllUsers() {
         return service.getAllUsers();
     }
 
-    // GET /auth/users/{id} - ADMIN only
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public UserAccount getUserById(@PathVariable Long id) {
         return service.getUserById(id);
     }
