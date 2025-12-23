@@ -19,15 +19,7 @@ public class ClashRecord {
     private LocalDateTime detectedAt;
     private Boolean resolved;
 
-    // public void ValidateAndInitializer() {
-    //     this.detectedAt = LocalDateTime.now();
-
-    // }
-
-    // public void ValidateAndInitializer() {
-    //     this.detectedAt =  detectedAt;
-
-    // }
+    
 
     public Long getId() {
         return id;
