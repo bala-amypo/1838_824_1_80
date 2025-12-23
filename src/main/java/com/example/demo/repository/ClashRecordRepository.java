@@ -7,7 +7,7 @@ import java.util.List;
 
 @Repository
 public interface ClashRecordRepository extends JpaRepository<ClashRecord, Long>{
-    public List<ClashRecord> findByEventId(Long eventId);
-
+    public List<ClashRecord> findByEventId(Long eventAId);
+    public List<ClashRecord> findByEventId(Long eventBId);
     public List<ClashRecord> findByResolvedFalse();
 }
