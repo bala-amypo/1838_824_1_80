@@ -27,14 +27,12 @@ public class BranchProfileServiceImpl implements BranchProfileService {
 
     @Override
     public BranchProfile getById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("BranchProfile not found with id " + id));
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("BranchProfile not found with id " + id));
     }
-
 
     @Override
     public BranchProfile findByBranchCode(String branchCode) {
-        return BranchProfileRepository.findByBranchCode(branchCode).orElse(null);
+        return repository.findByBranchCode(branchCode).orElse(null);
     }
-
 }
-
