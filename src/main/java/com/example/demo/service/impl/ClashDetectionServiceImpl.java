@@ -13,15 +13,15 @@ public class ClashDetectionServiceImpl implements ClashDetectionService {
 
     private final ClashRecordRepository clashRecordRepository;
 
-    public ClashDetectionServiceImpl(ClashRecordRepository repository) {
-        this.clashRecordRepository = repository;
+    public ClashDetectionServiceImpl(ClashRecordRepository clashRecordRepository) {
+        this.clashRecordRepository = clashRecordRepository;
     }
 
     @Override
     public ClashRecord logClash(ClashRecord clashRecord) {
-        ClashRecord.setResolved(false);
-        ClashRecord.setLoggedAt(LocalDateTime.now());
-        return clashRecordrepository.save(ClashRecord);
+        clashRecord.setResolved(false);
+        clashRecord.setLoggedAt(LocalDateTime.now());
+        return clashRecordRepository.save(clashRecord);
     }
 
     @Override
@@ -30,21 +30,21 @@ public class ClashDetectionServiceImpl implements ClashDetectionService {
                 .orElseThrow(() -> new RuntimeException("Clash not found"));
 
         clash.setResolved(true);
-        return repository.save(clash);
+        return clashRecordRepository.save(clash);
     }
 
     @Override
     public List<ClashRecord> getClashesByEventId(Long eventId) {
-        return repository.findByEventId(eventId);
+        return clashRecordRepository.findByEventId(eventId);
     }
 
     @Override
     public List<ClashRecord> getUnresolvedClashes() {
-        return repository.findByResolvedFalse();
+        return clashRecordRepository.findByResolvedFalse();
     }
 
     @Override
     public List<ClashRecord> getAllClashes() {
-        return repository.findAll();
+        return clashRecordRepository.findAll();
     }
 }
