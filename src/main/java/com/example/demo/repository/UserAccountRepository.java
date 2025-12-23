@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
 public interface UserAccountRepository extends JpaRepository<UserAccount, Long>{
-    public Optional<UserAccount> findByFullname(String fullName);
+    public Optional<UserAccount> findByFullName(String fullName);
 }
