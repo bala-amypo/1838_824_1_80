@@ -35,9 +35,13 @@ public class ClashDetectionServiceImpl implements ClashDetectionService {
 
     @Override
     public List<ClashRecord> getClashesByEventId(Long eventId) {
-        return clashRecordRepository.findByEventAId(eventId);
-        return clashRecordRepository.findByEventBId(eventId);
+        List<ClashRecord> clashesA = clashRecordRepository.findByEventAId(eventId);
+        List<ClashRecord> clashesB = clashRecordRepository.findByEventBId(eventId);
+
+        clashesA.addAll(clashesB);
+        return clashesA;
     }
+
 
     @Override
     public List<ClashRecord> getUnresolvedClashes() {
