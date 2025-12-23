@@ -11,34 +11,34 @@ import java.util.List;
 @RequestMapping("/api/harmonized-calendars")
 public class HarmonizedCalendarController {
 
-    private final HarmonizedCalendarService service;
+    private final HarmonizedCalendarService harmonizedCalendarService;
 
-    public HarmonizedCalendarController(HarmonizedCalendarService service) {
-        this.service = service;
+    public HarmonizedCalendarController(HarmonizedCalendarService harmonizedCalendarService) {
+        this.harmonizedCalendarService = harmonizedCalendarService;
     }
 
     // POST /generate - Generate a harmonized calendar
     @PostMapping("/generate")
     public HarmonizedCalendar generateCalendar(
             @RequestBody HarmonizedCalendar calendar) {
-        return service.generateCalendar(calendar);
+        return harmonizedCalendarService.generateCalendar(calendar);
     }
 
     // GET /{id} - Get calendar by ID
     @GetMapping("/{id}")
     public HarmonizedCalendar getCalendarById(@PathVariable Long id) {
-        return service.getCalendarById(id);
+        return harmonizedCalendarService.getCalendarById(id);
     }
 
     // GET / - List all calendars
     @GetMapping
     public List<HarmonizedCalendar> getAllCalendars() {
-        return service.getAllCalendars();
+        return harmonizedCalendarService.getAllCalendars();
     }
 
     // GET /range - Get calendars within date range
     @GetMapping("/range")
     public List<HarmonizedCalendar> getCalendarsInRange(@RequestParam LocalDate start, @RequestParam LocalDate end) {
-        return service.getCalendarsInRange(start, end);
+        return harmonizedCalendarService.getCalendarsInRange(start, end);
     }
 }
