@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface HarmonizedCalendarService {
 
-    List<HarmonizedCalendar> getCalendarsInRange(
+    public List<HarmonizedCalendar> getCalendarsInRange(
             LocalDate start,
             LocalDate end
     );
