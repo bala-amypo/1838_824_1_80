@@ -13,29 +13,20 @@ public class HarmonizedCalendarServiceImpl implements HarmonizedCalendarService 
 
     private final HarmonizedCalendarRepository repository;
 
-    public HarmonizedCalendarServiceImpl(HarmonizedCalendarRepository repository) {
+    public HarmonizedCalendarServiceImpl(
+            HarmonizedCalendarRepository repository
+    ) {
         this.repository = repository;
     }
 
     @Override
-    public HarmonizedCalendar generateCalendar(HarmonizedCalendar calendar) {
-        calendar.setGeneratedBy("SYSTEM");
-        return repository.save(calendar);
-    }
-
-    @Override
-    public HarmonizedCalendar getCalendarById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Calendar not found"));
-    }
-
-    @Override
-    public List<HarmonizedCalendar> getAllCalendars() {
-        return repository.findAll();
-    }
-
-    @Override
-    public List<HarmonizedCalendar> getCalendarsInRange(LocalDate effectiveFrom, LocalDate effectiveTo) {
-        return repository.findByStartDateGreaterThanEqualAndEndDateLessThanEqual(effectiveFrom, effectiveTo);
+    public List<HarmonizedCalendar> getCalendarsInRange(
+            LocalDate start,
+            LocalDate end
+    ) {
+        return repository
+                .findByEffectiveFromGreaterThanEqualAndEffectiveToLessThanEqual(
+                        start, end
+                );
     }
 }
