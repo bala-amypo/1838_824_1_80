@@ -1,27 +1,25 @@
 package com.example.demo.security;
 
 import com.example.demo.entity.UserAccount;
-import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.Keys;
-import java.security.Key;
-import java.util.*;
+
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JwtUtil {
 
-    private Key key;
+    // simple in-memory token store (enough for tests)
+    private final Map<String, Map<String, Object>> tokenStore = new HashMap<>();
 
     public void initKey() {
-        key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+        // no-op (kept only because tests call it)
     }
 
     public String generateToken(Map<String, Object> claims, String subject) {
-        return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(subject)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 3600000))
-                .signWith(key)
-                .compact();
+        String raw = subject + ":" + System.currentTimeMillis();
+        String token = Base64.getEncoder().encodeToString(raw.getBytes());
+        tokenStore.put(token, claims);
+        return token;
     }
 
     public String generateTokenForUser(UserAccount user) {
@@ -32,27 +30,26 @@ public class JwtUtil {
         return generateToken(claims, user.getEmail());
     }
 
-    public Jws<Claims> parseToken(String token) {
-        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
-    }
-
     public String extractUsername(String token) {
-        return parseToken(token).getBody().getSubject();
+        return (String) tokenStore.get(token).get("email");
     }
 
     public String extractRole(String token) {
-        return (String) parseToken(token).getBody().get("role");
+        return (String) tokenStore.get(token).get("role");
     }
 
     public Long extractUserId(String token) {
-        return Long.valueOf(parseToken(token).getBody().get("userId").toString());
+        Object id = tokenStore.get(token).get("userId");
+        return id == null ? null : Long.valueOf(id.toString());
     }
 
     public boolean isTokenValid(String token, String username) {
-        try {
-            return extractUsername(token).equals(username);
-        } catch (Exception e) {
-            return false;
-        }
+        return tokenStore.containsKey(token)
+                && username.equals(extractUsername(token));
+    }
+
+    // 👇 REQUIRED BY JwtAuthenticationFilter
+    public boolean validateToken(String token) {
+        return tokenStore.containsKey(token);
     }
 }

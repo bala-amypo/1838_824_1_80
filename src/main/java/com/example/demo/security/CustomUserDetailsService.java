@@ -4,6 +4,7 @@ import com.example.demo.entity.UserAccount;
 import com.example.demo.repository.UserAccountRepository;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import java.util.List;
 
 public class CustomUserDetailsService implements UserDetailsService {
