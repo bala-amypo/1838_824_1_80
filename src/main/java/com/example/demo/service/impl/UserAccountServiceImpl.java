@@ -25,7 +25,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     public UserAccount login(String username, String password) {
         return userAccountRepository
                 .findByUsernameAndPassword(username, password)
-                .orElseThrow(() -> new RuntimeException("Invalid credentials"));
+                .orElseThrow(() -> new RuntimeException("Invalid username or password"));
     }
 
     @Override
