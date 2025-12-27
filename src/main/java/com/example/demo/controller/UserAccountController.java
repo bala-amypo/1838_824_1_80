@@ -2,12 +2,12 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.UserAccount;
 import com.example.demo.service.UserAccountService;
-import org.springframework.web.bind.annotation.*;
 
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 public class UserAccountController {
 
     private final UserAccountService service;
@@ -17,16 +17,14 @@ public class UserAccountController {
     }
 
     @PostMapping("/register")
-    public UserAccount register(@RequestBody UserAccount user) {
-        return service.register(user);
+    public UserAccount register(@RequestBody UserAccount userAccount) {
+        return service.register(userAccount);
     }
 
     @PostMapping("/login")
-    public String login(
-            @RequestParam String fullName,
-            @RequestParam String password
-    ) {
-        return service.login(fullName, password);
+    public UserAccount login(@RequestParam String username,
+                             @RequestParam String password) {
+        return service.login(username, password);
     }
 
     @GetMapping

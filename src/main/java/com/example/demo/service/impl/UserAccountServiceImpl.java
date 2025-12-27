@@ -5,6 +5,7 @@ import com.example.demo.repository.UserAccountRepository;
 import com.example.demo.service.UserAccountService;
 
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class UserAccountServiceImpl implements UserAccountService {
@@ -25,5 +26,16 @@ public class UserAccountServiceImpl implements UserAccountService {
         return userAccountRepository
                 .findByUsernameAndPassword(username, password)
                 .orElseThrow(() -> new RuntimeException("Invalid credentials"));
+    }
+
+    @Override
+    public List<UserAccount> getAllUsers() {
+        return userAccountRepository.findAll();
+    }
+
+    @Override
+    public UserAccount getUserById(Long id) {
+        return userAccountRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
     }
 }
