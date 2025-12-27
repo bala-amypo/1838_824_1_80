@@ -41,9 +41,11 @@ public class UserAccountServiceImpl
         return repository.findAll();
     }
 
+    
     @Override
-    public UserAccount getUserById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-    }
+public UserAccount getUser(long id) {
+    return repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+}
+
 }
