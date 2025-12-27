@@ -6,8 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 @Repository
-public interface ClashRecordRepository extends JpaRepository<ClashRecord, Long>{
-    public List<ClashRecord> findByEventAId(Long eventAId);
-    public List<ClashRecord> findByEventBId(Long eventBId);
-    public List<ClashRecord> findByResolvedFalse();
+// ClashRecordRepository.java
+public interface ClashRecordRepository extends JpaRepository<ClashRecord, Long> {
+    List<ClashRecord> findByEventAIdOrEventBId(long a, long b);
 }
