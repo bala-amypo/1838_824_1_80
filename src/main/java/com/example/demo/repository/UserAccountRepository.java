@@ -6,7 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 // UserAccountRepository.java
+@Repository
 public interface UserAccountRepository extends JpaRepository<UserAccount, Long> {
-    boolean existsByEmail(String email);
+
+    Optional<UserAccount> findByEmail(String email);
+
+    Optional<UserAccount> findByFullName(String fullName);
 }
+
 

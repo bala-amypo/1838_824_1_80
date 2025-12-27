@@ -8,12 +8,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-// HarmonizedCalendarRepository.java
 public interface HarmonizedCalendarRepository
         extends JpaRepository<HarmonizedCalendar, Long> {
 
     List<HarmonizedCalendar>
-    findByEffectiveFromLessThanEqualAndEffectiveToGreaterThanEqual(
-            LocalDate from, LocalDate to);
+    findByEffectiveFromGreaterThanEqualAndEffectiveToLessThanEqual(
+            LocalDate from,
+            LocalDate to
+    );
 }
-
