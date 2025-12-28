@@ -38,4 +38,32 @@ public class HarmonizedCalendar {
     public LocalDate getEffectiveFrom(){return effectiveFrom;}
     public LocalDate getEffectiveTo(){return effectiveTo;}
     public String getEventsJson(){return eventsJson;}
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setGeneratedBy(String generatedBy) {
+        this.generatedBy = generatedBy;
+    }
+
+    public LocalDateTime getGeneratedAt() {
+        return generatedAt;
+    }
+
+    public void setGeneratedAt(LocalDateTime generatedAt) {
+        this.generatedAt = generatedAt;
+    }
+
+    public void setEffectiveFrom(LocalDate effectiveFrom) {
+        this.effectiveFrom = effectiveFrom;
+    }
+
+    public void setEffectiveTo(LocalDate effectiveTo) {
+        this.effectiveTo = effectiveTo;
+    }
+
+    public void setEventsJson(String eventsJson) {
+        this.eventsJson = eventsJson;
+    }
 }
