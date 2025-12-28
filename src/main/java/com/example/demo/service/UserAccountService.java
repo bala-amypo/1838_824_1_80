@@ -5,9 +5,9 @@ import java.util.List;
 
 public interface UserAccountService {
 
-    UserAccount register(UserAccount userAccount);
+    UserAccount register(UserAccount user);
 
-    UserAccount login(String username, String password);
+    UserAccount login(String email, String password);
 
     List<UserAccount> getAllUsers();
 

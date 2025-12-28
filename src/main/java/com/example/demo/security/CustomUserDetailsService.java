@@ -3,29 +3,30 @@ package com.example.demo.security;
 import com.example.demo.entity.UserAccount;
 import com.example.demo.repository.UserAccountRepository;
 import org.springframework.security.core.userdetails.*;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
-import java.util.List;
+import java.util.Collections;
 
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserAccountRepository repo;
+    private final UserAccountRepository userRepository;
 
-    public CustomUserDetailsService(UserAccountRepository repo) {
-        this.repo = repo;
+    public CustomUserDetailsService(UserAccountRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String email)
             throws UsernameNotFoundException {
 
-        UserAccount user = repo.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        UserAccount user = userRepository.findByEmail(email);
 
-        return new org.springframework.security.core.userdetails.User(
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+
+        return new User(
                 user.getEmail(),
                 user.getPassword(),
-                List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole()))
+                Collections.emptyList()
         );
     }
 }
