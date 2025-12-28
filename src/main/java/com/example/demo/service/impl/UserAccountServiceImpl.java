@@ -1,45 +1,34 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.UserAccount;
-import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.exception.ValidationException;
+import com.example.demo.exception.*;
 import com.example.demo.repository.UserAccountRepository;
-import com.example.demo.service.UserAccountService;
-import java.util.List;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
-public class UserAccountServiceImpl implements UserAccountService {
+@Service
+public class UserAccountServiceImpl {
 
-    private final UserAccountRepository repository;
+    private final UserAccountRepository repo;
+    private final PasswordEncoder encoder;
 
-    public UserAccountServiceImpl(UserAccountRepository repository) {
-        this.repository = repository;
+    public UserAccountServiceImpl(UserAccountRepository r,PasswordEncoder e){
+        this.repo=r; this.encoder=e;
     }
 
-    @Override
-    public UserAccount register(UserAccount user) {
-        if (repository.existsByEmail(user.getEmail())) {
-            throw new ValidationException("Email already exists");
-        }
-        return repository.save(user);
+    public UserAccount register(UserAccount u){
+        if(repo.existsByEmail(u.getEmail()))
+            throw new ValidationException("Email already in use");
+
+        if(u.getPassword().length() < 8)
+            throw new ValidationException("Password must be at least 8 characters");
+
+        u.setPassword(encoder.encode(u.getPassword()));
+        return repo.save(u);
     }
 
-    @Override
-    public UserAccount login(String email, String password) {
-        UserAccount user = repository.findByEmail(email);
-        if (user == null) {
-            throw new ResourceNotFoundException("User not found");
-        }
-        return user;
-    }
-
-    @Override
-    public List<UserAccount> getAllUsers() {
-        return repository.findAll();
-    }
-
-    @Override
-    public UserAccount getUserById(Long id) {
-        return repository.findById(id)
+    public UserAccount getUser(Long id){
+        return repo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 }

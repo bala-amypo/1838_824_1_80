@@ -1,55 +1,28 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.ClashRecord;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.ClashRecordRepository;
-import com.example.demo.service.ClashDetectionService;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 import java.util.List;
 
-@Service
-public class ClashDetectionServiceImpl implements ClashDetectionService {
+public class ClashDetectionServiceImpl {
 
-    private final ClashRecordRepository clashRecordRepository;
+    private final ClashRecordRepository repo;
 
-    public ClashDetectionServiceImpl(ClashRecordRepository clashRecordRepository) {
-        this.clashRecordRepository = clashRecordRepository;
+    public ClashDetectionServiceImpl(ClashRecordRepository r){this.repo=r;}
+
+    public List<ClashRecord> getClashesForEvent(Long id){
+        return repo.findByEventAIdOrEventBId(id,id);
     }
 
-    @Override
-    public ClashRecord logClash(ClashRecord clashRecord) {
-        clashRecord.setResolved(false);
-        clashRecord.setDetectedAt(LocalDateTime.now());
-        return clashRecordRepository.save(clashRecord);
+    public List<ClashRecord> getUnresolvedClashes(){
+        return repo.findByResolvedFalse();
     }
 
-    @Override
-    public ClashRecord resolveClash(Long id) {
-        ClashRecord clash = clashRecordRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Clash not found"));
-
-        clash.setResolved(true);
-        return clashRecordRepository.save(clash);
-    }
-
-    @Override
-    public List<ClashRecord> getClashesByEventId(Long eventId) {
-        List<ClashRecord> clashesA = clashRecordRepository.findByEventAId(eventId);
-        List<ClashRecord> clashesB = clashRecordRepository.findByEventBId(eventId);
-
-        clashesA.addAll(clashesB);
-        return clashesA;
-    }
-
-
-    @Override
-    public List<ClashRecord> getUnresolvedClashes() {
-        return clashRecordRepository.findByResolvedFalse();
-    }
-
-    @Override
-    public List<ClashRecord> getAllClashes() {
-        return clashRecordRepository.findAll();
+    public ClashRecord resolveClash(Long id){
+        ClashRecord cr = repo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Clash not found"));
+        cr.setResolved(true);
+        return repo.save(cr);
     }
 }

@@ -1,105 +1,36 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import java.lang.Boolean;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
-
 
 @Entity
 public class ClashRecord {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id @GeneratedValue
     private Long id;
     private Long eventAId;
     private Long eventBId;
     private String clashType;
     private String severity;
-    private String details;
+    private String remarks;
     private LocalDateTime detectedAt;
     private Boolean resolved;
 
-    
+    public ClashRecord(){}
 
-    public Long getId() {
-        return id;
+    public ClashRecord(Long id,Long a,Long b,String type,
+                       String sev,String r,LocalDateTime d,Boolean res){
+        this.id=id; this.eventAId=a; this.eventBId=b;
+        this.clashType=type; this.severity=sev;
+        this.remarks=r; this.detectedAt=d; this.resolved=res;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @PrePersist
+    public void prePersist(){
+        detectedAt = LocalDateTime.now();
+        if(resolved==null) resolved=false;
     }
 
-    public Long getEventAId() {
-        return eventAId;
-    }
-
-    public void setEventAId(Long eventAId) {
-        this.eventAId = eventAId;
-    }
-
-    public Long getEventBId() {
-        return eventBId;
-    }
-
-    public void setEventBId(Long eventBId) {
-        this.eventBId = eventBId;
-    }
-
-    public String getClashType() {
-        return clashType;
-    }
-
-    public void setClashType(String clashType) {
-        this.clashType = clashType;
-    }
-
-    public String getSeverity() {
-        return severity;
-    }
-
-    public void setSeverity(String severity) {
-        this.severity = severity;
-    }
-
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
-    }
-
-    public LocalDateTime getDetectedAt() {
-        return detectedAt;
-    }
-
-    public void setDetectedAt(LocalDateTime detectedAt) {
-        this.detectedAt = detectedAt;
-    }
-
-    public Boolean getResolved() {
-        return resolved;
-    }
-
-    public void setResolved(Boolean resolved) {
-        this.resolved = resolved;
-    }
-
-      public ClashRecord(String clashType, String details, LocalDateTime detectedAt, Long eventAId, Long eventBId, Long id, Boolean resolved, String severity) {
-        this.clashType = clashType;
-        this.details = details;
-        this.detectedAt = detectedAt;
-        this.eventAId = eventAId;
-        this.eventBId = eventBId;
-        this.id = id;
-        this.resolved = resolved;
-        this.severity = severity;
-    }
-    public ClashRecord(){
-
-    }
-
+    public Boolean getResolved(){return resolved;}
+    public void setResolved(Boolean r){this.resolved=r;}
 }

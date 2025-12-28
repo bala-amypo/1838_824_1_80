@@ -2,51 +2,26 @@ package com.example.demo.service.impl;
 
 import com.example.demo.entity.HarmonizedCalendar;
 import com.example.demo.repository.HarmonizedCalendarRepository;
-import com.example.demo.service.HarmonizedCalendarService;
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
-@Service
-public class HarmonizedCalendarServiceImpl
-        implements HarmonizedCalendarService {
+public class HarmonizedCalendarServiceImpl {
 
-    private final HarmonizedCalendarRepository repository;
+    private final HarmonizedCalendarRepository repo;
 
-    public HarmonizedCalendarServiceImpl(
-            HarmonizedCalendarRepository repository
-    ) {
-        this.repository = repository;
+    public HarmonizedCalendarServiceImpl(HarmonizedCalendarRepository r){this.repo=r;}
+
+    public HarmonizedCalendar generateHarmonizedCalendar(String title,String by){
+        HarmonizedCalendar c = new HarmonizedCalendar();
+        c.setTitle(title);
+        c.setGeneratedBy(by);
+        c.setEffectiveFrom(LocalDate.now());
+        c.setEffectiveTo(LocalDate.now().plusDays(30));
+        c.setEventsJson("[]");
+        return repo.save(c);
     }
 
-    @Override
-    public HarmonizedCalendar generateCalendar(
-            HarmonizedCalendar calendar
-    ) {
-        calendar.setGeneratedAt(LocalDateTime.now());
-        return repository.save(calendar);
-    }
-
-    @Override
-    public HarmonizedCalendar getCalendarById(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public List<HarmonizedCalendar> getAllCalendars() {
-        return repository.findAll();
-    }
-
-    @Override
-    public List<HarmonizedCalendar> getCalendarsInRange(
-            LocalDate start,
-            LocalDate end
-    ) {
-        return repository
-                .findByEffectiveFromGreaterThanEqualAndEffectiveToLessThanEqual(
-                        start, end
-                );
+    public List<HarmonizedCalendar> getCalendarsWithinRange(LocalDate s,LocalDate e){
+        return repo.findByEffectiveFromLessThanEqualAndEffectiveToGreaterThanEqual(s,e);
     }
 }
