@@ -1,14 +1,18 @@
 package com.example.demo.security;
 
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
+import java.security.Key;
 import java.util.Date;
 
 public class JwtUtil {
 
-    private final String secret = "secret-key";
+    private final Key key = Keys.hmacShaKeyFor(
+            "secret-key-secret-key-secret-key".getBytes()
+    );
 
     public void initKey() {
-        // required by tests
+        // required by tests – no logic needed
     }
 
     public String generateToken(String subject) {
@@ -16,22 +20,26 @@ public class JwtUtil {
                 .setSubject(subject)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 86400000))
-                .signWith(SignatureAlgorithm.HS256, secret)
+                .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
+            Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token);
             return true;
-        } catch (Exception e) {
+        } catch (JwtException e) {
             return false;
         }
     }
 
     public String extractUsername(String token) {
-        return Jwts.parser()
-                .setSigningKey(secret)
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
