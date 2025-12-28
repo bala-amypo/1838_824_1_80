@@ -1,90 +1,39 @@
 package com.example.demo.entity;
-import java.time.LocalDateTime;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class UserAccount {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id @GeneratedValue
     private Long id;
-    private String fullName;
+    private String name;
     private String email;
     private String password;
     private String role;
     private String department;
     private LocalDateTime createdAt;
 
-    public void ValidateAndInitializer() {
-        this.createdAt = LocalDateTime.now();
+    public UserAccount() {}
+
+    public UserAccount(Long id,String name,String email,String password,
+                       String role,String department,LocalDateTime createdAt){
+        this.id=id; this.name=name; this.email=email; this.password=password;
+        this.role=role; this.department=department; this.createdAt=createdAt;
     }
 
-    public Long getId() {
-        return id;
+    @PrePersist
+    public void prePersist() {
+        if (role == null) role = "REVIEWER";
+        createdAt = LocalDateTime.now();
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-    public UserAccount(LocalDateTime createdAt, String department, String email, String fullName, Long id, String password, String role) {
-        this.createdAt = createdAt;
-        this.department = department;
-        this.email = email;
-        this.fullName = fullName;
-        this.id = id;
-        this.password = password;
-        this.role = role;
-    }
-    public void setCreatedAt(LocalDateTime createdAt) {
-    }
-    
-
+    // getters & setters
+    public Long getId(){return id;}
+    public void setId(Long id){this.id=id;}
+    public String getEmail(){return email;}
+    public String getPassword(){return password;}
+    public String getRole(){return role;}
+    public LocalDateTime getCreatedAt(){return createdAt;}
 }
