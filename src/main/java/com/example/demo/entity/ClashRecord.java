@@ -11,88 +11,126 @@ public class ClashRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long eventAId;
-    private Long eventBId;
+    @Column(name = "branch_id_1")
+    private Long branchId1;
 
+    @Column(name = "branch_id_2")
+    private Long branchId2;
+
+    @Column(name = "calendar_id")
+    private Long calendarId;
+
+    @Column(name = "event_name_1")
+    private String eventName1;
+
+    @Column(name = "event_name_2")
+    private String eventName2;
+
+    @Column(name = "clash_type")
     private String clashType;
-    private String severity;
 
+    @Column(name = "logged_at")
+    private LocalDateTime loggedAt;
+
+    @Column(name = "resolved")
     private Boolean resolved;
-    private LocalDateTime detectedAt;
 
-    // ===== Constructors =====
-
+    // ✅ REQUIRED: No-args constructor (JPA + tests)
     public ClashRecord() {
-        // required by JPA
     }
 
-    // ===== JPA Lifecycle =====
-
-    @PrePersist
-    public void prePersist() {
-        this.detectedAt = LocalDateTime.now();
-        if (this.resolved == null) {
-            this.resolved = false;
-        }
+    // ✅ REQUIRED: Constructor used by TEST CASES
+    public ClashRecord(
+            Long id,
+            Long branchId1,
+            Long branchId2,
+            String eventName1,
+            String eventName2,
+            String clashType,
+            LocalDateTime loggedAt,
+            Boolean resolved
+    ) {
+        this.id = id;
+        this.branchId1 = branchId1;
+        this.branchId2 = branchId2;
+        this.eventName1 = eventName1;
+        this.eventName2 = eventName2;
+        this.clashType = clashType;
+        this.loggedAt = loggedAt;
+        this.resolved = resolved;
     }
 
-    // ===== Getters =====
+    // -------- GETTERS & SETTERS --------
 
     public Long getId() {
         return id;
     }
 
-    public Long getEventAId() {
-        return eventAId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Long getEventBId() {
-        return eventBId;
+    public Long getBranchId1() {
+        return branchId1;
+    }
+
+    public void setBranchId1(Long branchId1) {
+        this.branchId1 = branchId1;
+    }
+
+    public Long getBranchId2() {
+        return branchId2;
+    }
+
+    public void setBranchId2(Long branchId2) {
+        this.branchId2 = branchId2;
+    }
+
+    public Long getCalendarId() {
+        return calendarId;
+    }
+
+    public void setCalendarId(Long calendarId) {
+        this.calendarId = calendarId;
+    }
+
+    public String getEventName1() {
+        return eventName1;
+    }
+
+    public void setEventName1(String eventName1) {
+        this.eventName1 = eventName1;
+    }
+
+    public String getEventName2() {
+        return eventName2;
+    }
+
+    public void setEventName2(String eventName2) {
+        this.eventName2 = eventName2;
     }
 
     public String getClashType() {
         return clashType;
     }
 
-    public String getSeverity() {
-        return severity;
+    public void setClashType(String clashType) {
+        this.clashType = clashType;
+    }
+
+    public LocalDateTime getLoggedAt() {
+        return loggedAt;
+    }
+
+    public void setLoggedAt(LocalDateTime loggedAt) {
+        this.loggedAt = loggedAt;
     }
 
     public Boolean getResolved() {
         return resolved;
     }
 
-    public LocalDateTime getDetectedAt() {
-        return detectedAt;
-    }
-
-    // ===== Setters (REQUIRED BY TESTS & SERVICES) =====
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setEventAId(Long eventAId) {
-        this.eventAId = eventAId;
-    }
-
-    public void setEventBId(Long eventBId) {
-        this.eventBId = eventBId;
-    }
-
-    public void setClashType(String clashType) {
-        this.clashType = clashType;
-    }
-
-    public void setSeverity(String severity) {
-        this.severity = severity;
-    }
-
     public void setResolved(Boolean resolved) {
         this.resolved = resolved;
-    }
-
-    public void setDetectedAt(LocalDateTime detectedAt) {
-        this.detectedAt = detectedAt;
     }
 }
