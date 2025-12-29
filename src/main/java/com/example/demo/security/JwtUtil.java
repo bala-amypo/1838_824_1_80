@@ -2,69 +2,60 @@ package com.example.demo.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
+import java.util.Map;
 
-@Component
 public class JwtUtil {
 
-    private static final String SECRET_KEY =
-            "mysecretkeymysecretkeymysecretkeymysecretkey";
+    private Key key;
 
-    private Key getSigningKey() {
-        return Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
-    }
-
-    // Called by SecurityConfig (FIXED)
     public void initKey() {
-        getSigningKey();
+        this.key = Keys.hmacShaKeyFor(
+                "verysecretkeyverysecretkeyverysecretkey".getBytes(StandardCharsets.UTF_8)
+        );
     }
 
-    public String generateToken(String username) {
+    public String generateToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
-                .setSubject(username)
+                .setClaims(claims)
+                .setSubject(subject)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 1000))
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .setExpiration(new Date(System.currentTimeMillis() + 3600000))
+                .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    // Called by filter
-    public boolean validateToken(String token) {
-        try {
-            parseToken(token);
-            return true;
-        } catch (JwtException | IllegalArgumentException e) {
-            return false;
-        }
+    public String generateTokenForUser(com.example.demo.entity.UserAccount ua) {
+        return generateToken(
+                Map.of(
+                        "userId", ua.getId(),
+                        "email", ua.getEmail(),
+                        "role", ua.getRole()
+                ),
+                ua.getEmail()
+        );
     }
 
-    // Called by tests
-    public boolean isTokenValid(String token, String username) {
-        try {
-            return extractUsername(token).equals(username) && !isTokenExpired(token);
-        } catch (Exception e) {
-            return false;
-        }
+    public boolean isTokenValid(String token, String email) {
+        return extractUsername(token).equals(email);
     }
 
     public String extractUsername(String token) {
-        return parseToken(token).getBody().getSubject();
+        return parseToken(token).getPayload().getSubject();
     }
 
-    public boolean isTokenExpired(String token) {
-        Date expiration = parseToken(token).getBody().getExpiration();
-        return expiration.before(new Date());
+    public Long extractUserId(String token) {
+        return ((Number) parseToken(token).getPayload().get("userId")).longValue();
     }
 
-    // MUST be public (tests call it)
+    public String extractRole(String token) {
+        return (String) parseToken(token).getPayload().get("role");
+    }
+
     public Jws<Claims> parseToken(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
-                .build()
-                .parseClaimsJws(token);
+        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
     }
 }

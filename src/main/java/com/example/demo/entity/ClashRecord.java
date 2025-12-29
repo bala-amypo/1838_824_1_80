@@ -4,90 +4,50 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "clash_record")
+@Table(name = "clash_records")
 public class ClashRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private Long eventAId;
-
-    @Column(nullable = false)
     private Long eventBId;
-
-    @Column(nullable = false)
     private String clashType;
-
-    @Column(nullable = false)
     private String severity;
-
+    private String details;
+    private LocalDateTime detectedAt;
     private Boolean resolved;
 
-    private LocalDateTime detectedAt;
+    public ClashRecord() {}
 
-    // ===== Constructors =====
-
-    public ClashRecord() {
-        // JPA requires a no-args constructor
-    }
-
-    // ===== Getters and Setters =====
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public ClashRecord(Long id, Long eventAId, Long eventBId,
+                       String clashType, String severity,
+                       String details, LocalDateTime detectedAt, Boolean resolved) {
         this.id = id;
-    }
-
-    public Long getEventAId() {
-        return eventAId;
-    }
-
-    public void setEventAId(Long eventAId) {
         this.eventAId = eventAId;
-    }
-
-    public Long getEventBId() {
-        return eventBId;
-    }
-
-    public void setEventBId(Long eventBId) {
         this.eventBId = eventBId;
-    }
-
-    public String getClashType() {
-        return clashType;
-    }
-
-    public void setClashType(String clashType) {
         this.clashType = clashType;
-    }
-
-    public String getSeverity() {
-        return severity;
-    }
-
-    public void setSeverity(String severity) {
         this.severity = severity;
-    }
-
-    public Boolean getResolved() {
-        return resolved;
-    }
-
-    public void setResolved(Boolean resolved) {
+        this.details = details;
+        this.detectedAt = detectedAt;
         this.resolved = resolved;
     }
 
-    public LocalDateTime getDetectedAt() {
-        return detectedAt;
+    @PrePersist
+    public void prePersist() {
+        this.detectedAt = LocalDateTime.now();
+        if (this.resolved == null) this.resolved = false;
     }
 
-    public void setDetectedAt(LocalDateTime detectedAt) {
-        this.detectedAt = detectedAt;
-    }
+    // getters & setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public Long getEventAId() { return eventAId; }
+    public void setEventAId(Long eventAId) { this.eventAId = eventAId; }
+    public Long getEventBId() { return eventBId; }
+    public void setEventBId(Long eventBId) { this.eventBId = eventBId; }
+    public Boolean getResolved() { return resolved; }
+    public void setResolved(Boolean resolved) { this.resolved = resolved; }
+    public LocalDateTime getDetectedAt() { return detectedAt; }
 }

@@ -4,79 +4,49 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "branch_profile")
+@Table(name = "branch_profiles")
 public class BranchProfile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String branchCode;
 
-    @Column(nullable = false)
     private String branchName;
-
-    @Column(nullable = false)
     private String contactEmail;
-
+    private LocalDateTime lastSyncAt;
     private Boolean active;
 
-    private LocalDateTime lastSyncAt;
+    public BranchProfile() {}
 
-    // ===== Constructors =====
-
-    public BranchProfile() {
-        // default constructor required by JPA
-    }
-
-    // ===== Getters and Setters =====
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public BranchProfile(Long id, String branchCode, String branchName,
+                         String contactEmail, LocalDateTime lastSyncAt, Boolean active) {
         this.id = id;
-    }
-
-    public String getBranchCode() {
-        return branchCode;
-    }
-
-    public void setBranchCode(String branchCode) {
         this.branchCode = branchCode;
-    }
-
-    public String getBranchName() {
-        return branchName;
-    }
-
-    public void setBranchName(String branchName) {
         this.branchName = branchName;
-    }
-
-    public String getContactEmail() {
-        return contactEmail;
-    }
-
-    public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
+        this.lastSyncAt = lastSyncAt;
         this.active = active;
     }
 
-    public LocalDateTime getLastSyncAt() {
-        return lastSyncAt;
+    @PrePersist
+    public void prePersist() {
+        this.lastSyncAt = LocalDateTime.now();
+        if (this.active == null) this.active = true;
     }
 
-    public void setLastSyncAt(LocalDateTime lastSyncAt) {
-        this.lastSyncAt = lastSyncAt;
-    }
+    // getters & setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getBranchCode() { return branchCode; }
+    public void setBranchCode(String branchCode) { this.branchCode = branchCode; }
+    public String getBranchName() { return branchName; }
+    public void setBranchName(String branchName) { this.branchName = branchName; }
+    public String getContactEmail() { return contactEmail; }
+    public void setContactEmail(String contactEmail) { this.contactEmail = contactEmail; }
+    public LocalDateTime getLastSyncAt() { return lastSyncAt; }
+    public Boolean getActive() { return active; }
+    public void setActive(Boolean active) { this.active = active; }
 }
