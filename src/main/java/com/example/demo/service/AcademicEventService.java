@@ -1,51 +1,17 @@
-package com.example.demo.service.impl;
+package com.example.demo.service;
 
 import com.example.demo.entity.AcademicEvent;
-import com.example.demo.repository.AcademicEventRepository;
-import com.example.demo.service.AcademicEventService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 
-@Service
-public class AcademicEventServiceImpl implements AcademicEventService {
+public interface AcademicEventService {
 
-    @Autowired
-    private AcademicEventRepository repository;
+    AcademicEvent createEvent(AcademicEvent event);
 
-    @Override
-    public AcademicEvent createEvent(AcademicEvent event) {
-        return repository.save(event);
-    }
+    List<AcademicEvent> getEventByBranch(Long branchId);
 
-    // ORIGINAL
-    @Override
-    public List<AcademicEvent> getEventByBranch(Long branchId) {
-        return repository.findByBranchId(branchId);
-    }
+    AcademicEvent updateEvent(Long id, AcademicEvent event);
 
-    // ✅ REQUIRED BY TESTS
-    public List<AcademicEvent> getEventsByBranch(Long branchId) {
-        return getEventByBranch(branchId);
-    }
+    AcademicEvent getEventById(Long id);
 
-    @Override
-    public AcademicEvent updateEvent(Long id, AcademicEvent event) {
-        repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Event not found"));
-        event.setId(id);
-        return repository.save(event);
-    }
-
-    @Override
-    public AcademicEvent getEventById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Event not found"));
-    }
-
-    @Override
-    public List<AcademicEvent> getAllEvents() {
-        return repository.findAll();
-    }
+    List<AcademicEvent> getAllEvents();
 }

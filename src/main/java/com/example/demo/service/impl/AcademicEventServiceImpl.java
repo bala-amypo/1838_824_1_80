@@ -12,39 +12,39 @@ import java.util.List;
 public class AcademicEventServiceImpl implements AcademicEventService {
 
     @Autowired
-    private AcademicEventRepository academicEventRepository;
+    private AcademicEventRepository repository;
 
     @Override
     public AcademicEvent createEvent(AcademicEvent event) {
-        return academicEventRepository.save(event);
+        return repository.save(event);
     }
 
     @Override
     public List<AcademicEvent> getEventByBranch(Long branchId) {
-        return academicEventRepository.findByBranchId(branchId);
+        return repository.findByBranchId(branchId);
+    }
+
+    // Alias required by tests
+    public List<AcademicEvent> getEventsByBranch(Long branchId) {
+        return getEventByBranch(branchId);
     }
 
     @Override
     public AcademicEvent updateEvent(Long id, AcademicEvent event) {
-        // Ensure event exists
-        academicEventRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException(
-                        "AcademicEvent not found with id: " + id));
-
-        // Force ID and save updated object
+        repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Event not found"));
         event.setId(id);
-        return academicEventRepository.save(event);
+        return repository.save(event);
     }
 
     @Override
     public AcademicEvent getEventById(Long id) {
-        return academicEventRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException(
-                        "AcademicEvent not found with id: " + id));
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Event not found"));
     }
 
     @Override
     public List<AcademicEvent> getAllEvents() {
-        return academicEventRepository.findAll();
+        return repository.findAll();
     }
 }
