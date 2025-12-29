@@ -3,17 +3,16 @@ package com.example.demo.security;
 import com.example.demo.entity.UserAccount;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
+@Component
 public class JwtUtil {
 
-    private SecretKey key;
-
-    public void initKey() {
-        key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    }
+    private final SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     public String generateToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
@@ -32,26 +31,30 @@ public class JwtUtil {
     }
 
     public String extractUsername(String token) {
-        return parseToken(token).getPayload().getSubject();
+        return parseToken(token).getBody().getSubject();
     }
 
     public String extractRole(String token) {
-        return (String) parseToken(token).getPayload().get("role");
+        return (String) parseToken(token).getBody().get("role");
     }
 
     public Long extractUserId(String token) {
-        Object id = parseToken(token).getPayload().get("userId");
-        return Long.valueOf(id.toString());
+        return Long.valueOf(parseToken(token).getBody().get("userId").toString());
     }
 
-    public boolean isTokenValid(String token, String username) {
-        return extractUsername(token).equals(username);
+    public boolean validateToken(String token) {
+        try {
+            parseToken(token);
+            return true;
+        } catch (JwtException e) {
+            return false;
+        }
     }
 
-    public Jws<Claims> parseToken(String token) {
-        Jwts.parser()
-    .setSigningKey(key)
-    .parseClaimsJws(token);
-
+    private Jws<Claims> parseToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token);
     }
 }
