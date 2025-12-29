@@ -12,53 +12,45 @@ import java.util.Map;
 @Component
 public class JwtUtil {
 
-    private SecretKey key;
+    private static final String SECRET_KEY =
+            "mysecretkeymysecretkeymysecretkeymysecretkey";
 
-    // REQUIRED because SecurityConfig calls it
-    public void initKey() {
-        this.key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    private Key getSigningKey() {
+        return Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String generateToken(Map<String, Object> claims, String subject) {
+    public String generateToken(String username) {
         return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(subject)
-                .signWith(SignatureAlgorithm.HS256, key)
+                .setSubject(username)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    public String generateTokenForUser(UserAccount ua) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("email", ua.getEmail());
-        claims.put("role", ua.getRole());
-        claims.put("userId", ua.getId());
-        return generateToken(claims, ua.getEmail());
-    }
-
-    public String extractUsername(String token) {
-        return parseToken(token).getBody().getSubject();
-    }
-
-    public String extractRole(String token) {
-        return (String) parseToken(token).getBody().get("role");
-    }
-
-    public Long extractUserId(String token) {
-        return Long.valueOf(parseToken(token).getBody().get("userId").toString());
-    }
-
-    public boolean validateToken(String token) {
+    // ✅ REQUIRED BY TEST
+    public boolean isTokenValid(String token, String username) {
         try {
-            parseToken(token);
-            return true;
-        } catch (JwtException | IllegalArgumentException e) {
+            return extractUsername(token).equals(username) && !isTokenExpired(token);
+        } catch (Exception e) {
             return false;
         }
     }
 
-    private Jws<Claims> parseToken(String token) {
-        return Jwts.parser()
-                .setSigningKey(key)
+    public String extractUsername(String token) {
+        return parseToken(token).getPayload().getSubject();
+    }
+
+    public boolean isTokenExpired(String token) {
+        Date expiration = parseToken(token).getPayload().getExpiration();
+        return expiration.before(new Date());
+    }
+
+    // ⚠️ MUST BE PUBLIC (tests call it)
+    public Jws<Claims> parseToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
                 .parseClaimsJws(token);
     }
 }

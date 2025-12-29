@@ -6,31 +6,54 @@ import java.time.LocalDateTime;
 @Entity
 public class ClashRecord {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private Long eventAId;
     private Long eventBId;
     private String clashType;
     private String severity;
-    private String remarks;
+
     private LocalDateTime detectedAt;
-    private Boolean resolved;
 
-    public ClashRecord(){}
-
-    public ClashRecord(Long id,Long a,Long b,String type,
-                       String sev,String r,LocalDateTime d,Boolean res){
-        this.id=id; this.eventAId=a; this.eventBId=b;
-        this.clashType=type; this.severity=sev;
-        this.remarks=r; this.detectedAt=d; this.resolved=res;
+    public Long getEventAId() {
+        return eventAId;
     }
 
-    @PrePersist
-    public void prePersist(){
-        detectedAt = LocalDateTime.now();
-        if(resolved==null) resolved=false;
+    public void setEventAId(Long eventAId) {
+        this.eventAId = eventAId;
     }
 
-    public Boolean getResolved(){return resolved;}
-    public void setResolved(Boolean r){this.resolved=r;}
+    public Long getEventBId() {
+        return eventBId;
+    }
+
+    public void setEventBId(Long eventBId) {
+        this.eventBId = eventBId;
+    }
+
+    public String getClashType() {
+        return clashType;
+    }
+
+    public void setClashType(String clashType) {
+        this.clashType = clashType;
+    }
+
+    public String getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(String severity) {
+        this.severity = severity;
+    }
+
+    public LocalDateTime getDetectedAt() {
+        return detectedAt;
+    }
+
+    public void setDetectedAt(LocalDateTime detectedAt) {
+        this.detectedAt = detectedAt;
+    }
 }
