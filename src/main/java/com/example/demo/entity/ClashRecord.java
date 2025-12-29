@@ -11,7 +11,6 @@ public class ClashRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // ===== fields used by tests =====
     private Long eventAId;
     private Long eventBId;
     private Long branchId;
@@ -23,13 +22,13 @@ public class ClashRecord {
     private Boolean resolved;
 
     // =================================================
-    // REQUIRED: no-args constructor (JPA + tests)
+    // REQUIRED: no-args constructor
     // =================================================
     public ClashRecord() {
     }
 
     // =================================================
-    // REQUIRED: constructor used directly in tests
+    // REQUIRED: constructor used by tests
     // =================================================
     public ClashRecord(
             Long id,
@@ -37,7 +36,7 @@ public class ClashRecord {
             Long eventBId,
             String clashType,
             String severity,
-            String ignored,          // tests pass an extra String
+            String ignored,
             LocalDateTime detectedAt,
             Boolean resolved
     ) {
@@ -51,7 +50,20 @@ public class ClashRecord {
     }
 
     // =================================================
-    // setters REQUIRED by tests
+    // REQUIRED BY TESTS (called directly)
+    // =================================================
+    @PrePersist
+    public void prePersist() {
+        if (this.detectedAt == null) {
+            this.detectedAt = LocalDateTime.now();
+        }
+        if (this.resolved == null) {
+            this.resolved = false;
+        }
+    }
+
+    // =================================================
+    // setters required by tests
     // =================================================
     public void setEventAId(Long eventAId) {
         this.eventAId = eventAId;
@@ -74,7 +86,7 @@ public class ClashRecord {
     }
 
     // =================================================
-    // getters REQUIRED by tests
+    // getters required by tests
     // =================================================
     public Long getId() {
         return id;
