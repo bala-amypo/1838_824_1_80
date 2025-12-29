@@ -1,35 +1,50 @@
 package com.example.demo.security;
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.web.filter.OncePerRequestFilter;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
 
-import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
+import java.util.Date;
 
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+public class JwtUtil {
 
-    private final JwtUtil jwtUtil;
+    private Key key;
 
-    public JwtAuthenticationFilter(JwtUtil jwtUtil) {
-        this.jwtUtil = jwtUtil;
+    // Called from SecurityConfig
+    public void initKey() {
+        this.key = Keys.hmacShaKeyFor(
+                "verysecretkeyverysecretkeyverysecretkey"
+                        .getBytes(StandardCharsets.UTF_8)
+        );
     }
 
-    @Override
-    protected void doFilterInternal(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            FilterChain filterChain
-    ) throws ServletException, IOException {
+    // 🔥 REQUIRED BY TEST CASES
+    public String generateTokenForUser(com.example.demo.entity.UserAccount user) {
+        return Jwts.builder()
+                .setSubject(user.getEmail())
+                .claim("userId", user.getId())
+                .claim("role", user.getRole())
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 3600000))
+                .signWith(key)
+                .compact();
+    }
 
-        String authHeader = request.getHeader("Authorization");
+    // 🔥 REQUIRED BY FILTER
+    public void validateToken(String token) {
+        // If token is invalid, an exception will be thrown automatically
+        Jwts.parser()
+                .verifyWith((javax.crypto.SecretKey) key)
+                .build()
+                .parseSignedClaims(token);
+    }
 
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            String token = authHeader.substring(7);
-            jwtUtil.validateToken(token);
-        }
-
-        filterChain.doFilter(request, response);
+    // 🔥 REQUIRED BY TEST CASES
+    public Jws<Claims> parseToken(String token) {
+        return Jwts.parser()
+                .verifyWith((javax.crypto.SecretKey) key)
+                .build()
+                .parseSignedClaims(token);
     }
 }
