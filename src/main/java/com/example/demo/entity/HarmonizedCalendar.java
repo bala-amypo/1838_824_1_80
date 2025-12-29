@@ -12,41 +12,87 @@ public class HarmonizedCalendar {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String title;
+
+    @Column(nullable = false)
     private String generatedBy;
-    private LocalDateTime generatedAt;
+
+    @Column(nullable = false)
     private LocalDate effectiveFrom;
+
+    @Column(nullable = false)
     private LocalDate effectiveTo;
 
     @Column(columnDefinition = "TEXT")
     private String eventsJson;
 
-    public HarmonizedCalendar() {}
+    private LocalDateTime generatedAt;
 
-    public HarmonizedCalendar(Long id, String title, String generatedBy,
-                              LocalDateTime generatedAt,
-                              LocalDate effectiveFrom, LocalDate effectiveTo,
-                              String eventsJson) {
-        this.id = id;
-        this.title = title;
-        this.generatedBy = generatedBy;
-        this.generatedAt = generatedAt;
-        this.effectiveFrom = effectiveFrom;
-        this.effectiveTo = effectiveTo;
-        this.eventsJson = eventsJson;
+    // ===== Constructors =====
+
+    public HarmonizedCalendar() {
+        // required by JPA
     }
+
+    // ===== JPA Lifecycle =====
 
     @PrePersist
     public void prePersist() {
         this.generatedAt = LocalDateTime.now();
     }
 
-    // getters & setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getTitle() { return title; }
-    public String getGeneratedBy() { return generatedBy; }
-    public LocalDate getEffectiveFrom() { return effectiveFrom; }
-    public LocalDate getEffectiveTo() { return effectiveTo; }
-    public String getEventsJson() { return eventsJson; }
+    // ===== Getters and Setters =====
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getGeneratedBy() {
+        return generatedBy;
+    }
+
+    public void setGeneratedBy(String generatedBy) {
+        this.generatedBy = generatedBy;
+    }
+
+    public LocalDate getEffectiveFrom() {
+        return effectiveFrom;
+    }
+
+    public void setEffectiveFrom(LocalDate effectiveFrom) {
+        this.effectiveFrom = effectiveFrom;
+    }
+
+    public LocalDate getEffectiveTo() {
+        return effectiveTo;
+    }
+
+    public void setEffectiveTo(LocalDate effectiveTo) {
+        this.effectiveTo = effectiveTo;
+    }
+
+    public String getEventsJson() {
+        return eventsJson;
+    }
+
+    public void setEventsJson(String eventsJson) {
+        this.eventsJson = eventsJson;
+    }
+
+    public LocalDateTime getGeneratedAt() {
+        return generatedAt;
+    }
 }

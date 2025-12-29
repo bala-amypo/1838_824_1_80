@@ -28,15 +28,14 @@ public class JwtUtil {
                 .compact();
     }
 
-    public String generateTokenForUser(com.example.demo.entity.UserAccount ua) {
-        return generateToken(
-                Map.of(
-                        "userId", ua.getId(),
-                        "email", ua.getEmail(),
-                        "role", ua.getRole()
-                ),
-                ua.getEmail()
-        );
+    // REQUIRED by JwtAuthenticationFilter
+    public boolean validateToken(String token) {
+        try {
+            parseToken(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public boolean isTokenValid(String token, String email) {
@@ -44,18 +43,22 @@ public class JwtUtil {
     }
 
     public String extractUsername(String token) {
-        return parseToken(token).getPayload().getSubject();
+        return parseToken(token).getBody().getSubject();
     }
 
     public Long extractUserId(String token) {
-        return ((Number) parseToken(token).getPayload().get("userId")).longValue();
+        return ((Number) parseToken(token).getBody().get("userId")).longValue();
     }
 
     public String extractRole(String token) {
-        return (String) parseToken(token).getPayload().get("role");
+        return (String) parseToken(token).getBody().get("role");
     }
 
+    // IMPORTANT: getBody(), NOT getPayload()
     public Jws<Claims> parseToken(String token) {
-        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token);
     }
 }
