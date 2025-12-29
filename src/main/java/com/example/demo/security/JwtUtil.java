@@ -34,10 +34,10 @@ public class JwtUtil {
     // =====================================================
     // Token Generation
     // =====================================================
-    public String generateToken(Map<String, Object> claims, String username) {
+    public String generateToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
                 .claims(claims)
-                .subject(username)
+                .subject(subject)
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(key, SignatureAlgorithm.HS256)
@@ -51,7 +51,7 @@ public class JwtUtil {
                         "userId", user.getId(),
                         "role", user.getRole()
                 ),
-                user.getUsername()
+                user.getEmail()   // ✅ FIXED (was getUsername)
         );
     }
 
@@ -81,12 +81,12 @@ public class JwtUtil {
         return !isTokenExpired(token);
     }
 
-    public boolean isTokenValid(String token, String username) {
-        return extractUsername(token).equals(username) && !isTokenExpired(token);
+    public boolean isTokenValid(String token, String subject) {
+        return extractUsername(token).equals(subject) && !isTokenExpired(token);
     }
 
     // =====================================================
-    // Internal Helpers (JJWT 0.12.x API)
+    // Internal Helpers (JJWT 0.12.x)
     // =====================================================
     private boolean isTokenExpired(String token) {
         return extractAllClaims(token)
@@ -96,7 +96,7 @@ public class JwtUtil {
 
     private Claims extractAllClaims(String token) {
         return Jwts.parser()
-                .verifyWith(key)          // 🔑 REQUIRED IN 0.12.x
+                .verifyWith(key)
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
