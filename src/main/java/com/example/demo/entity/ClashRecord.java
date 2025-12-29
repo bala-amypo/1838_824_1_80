@@ -11,30 +11,71 @@ public class ClashRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // ===== Fields expected by tests =====
+    // ===== fields used by tests =====
     private Long eventAId;
     private Long eventBId;
+    private Long branchId;
 
-    private String category;
+    private String clashType;
+    private String severity;
 
     private LocalDateTime detectedAt;
+    private Boolean resolved;
 
-    private Boolean resolved = false;
-
-    // ===== Constructors =====
+    // =================================================
+    // REQUIRED: no-args constructor (JPA + tests)
+    // =================================================
     public ClashRecord() {
     }
 
-    // ===== JPA lifecycle hook (expected by tests) =====
-    @PrePersist
-    public void prePersist() {
-        if (this.detectedAt == null) {
-            this.detectedAt = LocalDateTime.now();
-        }
+    // =================================================
+    // REQUIRED: constructor used directly in tests
+    // =================================================
+    public ClashRecord(
+            Long id,
+            Long eventAId,
+            Long eventBId,
+            String clashType,
+            String severity,
+            String ignored,          // tests pass an extra String
+            LocalDateTime detectedAt,
+            Boolean resolved
+    ) {
+        this.id = id;
+        this.eventAId = eventAId;
+        this.eventBId = eventBId;
+        this.clashType = clashType;
+        this.severity = severity;
+        this.detectedAt = detectedAt;
+        this.resolved = resolved;
     }
 
-    // ===== Getters & Setters (exact names tests use) =====
+    // =================================================
+    // setters REQUIRED by tests
+    // =================================================
+    public void setEventAId(Long eventAId) {
+        this.eventAId = eventAId;
+    }
 
+    public void setEventBId(Long eventBId) {
+        this.eventBId = eventBId;
+    }
+
+    public void setClashType(String clashType) {
+        this.clashType = clashType;
+    }
+
+    public void setSeverity(String severity) {
+        this.severity = severity;
+    }
+
+    public void setResolved(Boolean resolved) {
+        this.resolved = resolved;
+    }
+
+    // =================================================
+    // getters REQUIRED by tests
+    // =================================================
     public Long getId() {
         return id;
     }
@@ -43,24 +84,16 @@ public class ClashRecord {
         return eventAId;
     }
 
-    public void setEventAId(Long eventAId) {
-        this.eventAId = eventAId;
-    }
-
     public Long getEventBId() {
         return eventBId;
     }
 
-    public void setEventBId(Long eventBId) {
-        this.eventBId = eventBId;
+    public String getClashType() {
+        return clashType;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
+    public String getSeverity() {
+        return severity;
     }
 
     public LocalDateTime getDetectedAt() {
@@ -69,9 +102,5 @@ public class ClashRecord {
 
     public Boolean getResolved() {
         return resolved;
-    }
-
-    public void setResolved(Boolean resolved) {
-        this.resolved = resolved;
     }
 }
