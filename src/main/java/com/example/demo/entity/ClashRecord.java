@@ -11,6 +11,7 @@ public class ClashRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // ===== Fields expected by tests =====
     private Long eventAId;
     private Long eventBId;
 
@@ -20,15 +21,19 @@ public class ClashRecord {
 
     private Boolean resolved = false;
 
-    public ClashRecord() {}
-
-    // -------- JPA LIFECYCLE --------
-    @PrePersist
-    public void prePersist() {
-        this.detectedAt = LocalDateTime.now();
+    // ===== Constructors =====
+    public ClashRecord() {
     }
 
-    // -------- GETTERS & SETTERS --------
+    // ===== JPA lifecycle hook (expected by tests) =====
+    @PrePersist
+    public void prePersist() {
+        if (this.detectedAt == null) {
+            this.detectedAt = LocalDateTime.now();
+        }
+    }
+
+    // ===== Getters & Setters (exact names tests use) =====
 
     public Long getId() {
         return id;
