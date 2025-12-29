@@ -12,13 +12,18 @@ import java.util.Map;
 @Component
 public class JwtUtil {
 
-    private final SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    private SecretKey key;
+
+    // REQUIRED because SecurityConfig calls it
+    public void initKey() {
+        this.key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    }
 
     public String generateToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
-                .signWith(key)
+                .signWith(SignatureAlgorithm.HS256, key)
                 .compact();
     }
 
@@ -46,15 +51,14 @@ public class JwtUtil {
         try {
             parseToken(token);
             return true;
-        } catch (JwtException e) {
+        } catch (JwtException | IllegalArgumentException e) {
             return false;
         }
     }
 
     private Jws<Claims> parseToken(String token) {
-        return Jwts.parserBuilder()
+        return Jwts.parser()
                 .setSigningKey(key)
-                .build()
                 .parseClaimsJws(token);
     }
 }

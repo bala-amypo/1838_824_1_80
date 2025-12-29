@@ -13,7 +13,7 @@ public class SecurityConfig {
     @Bean
     public JwtUtil jwtUtil() {
         JwtUtil util = new JwtUtil();
-        util.initKey();
+        util.initKey();   // now exists again ✅
         return util;
     }
 
@@ -22,10 +22,13 @@ public class SecurityConfig {
 
         http.csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/**", "/simple-status", "/swagger-ui/**", "/v3/api-docs/**")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
+                .requestMatchers(
+                    "/auth/**",
+                    "/simple-status",
+                    "/swagger-ui/**",
+                    "/v3/api-docs/**"
+                ).permitAll()
+                .anyRequest().authenticated()
             )
             .addFilterBefore(
                 new JwtAuthenticationFilter(jwtUtil),
