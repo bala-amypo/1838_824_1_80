@@ -5,7 +5,9 @@ import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.*;
 import java.time.LocalDate;
 import java.util.*;
+import org.springframework.stereotype.Service;
 
+@Service
 public class EventMergeServiceImpl {
 
     private final AcademicEventRepository eventRepo;

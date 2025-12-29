@@ -4,7 +4,9 @@ import com.example.demo.entity.ClashRecord;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.ClashRecordRepository;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ClashDetectionServiceImpl {
 
     private final ClashRecordRepository repo;

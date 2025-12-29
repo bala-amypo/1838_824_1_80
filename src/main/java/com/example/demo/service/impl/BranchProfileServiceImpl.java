@@ -4,7 +4,9 @@ import com.example.demo.entity.BranchProfile;
 import com.example.demo.repository.BranchProfileRepository;
 import com.example.demo.exception.ResourceNotFoundException;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
+@Service
 public class BranchProfileServiceImpl {
 
     private final BranchProfileRepository repo;

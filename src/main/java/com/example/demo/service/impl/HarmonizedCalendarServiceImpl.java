@@ -4,7 +4,9 @@ import com.example.demo.entity.HarmonizedCalendar;
 import com.example.demo.repository.HarmonizedCalendarRepository;
 import java.time.LocalDate;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
+@Service
 public class HarmonizedCalendarServiceImpl {
 
     private final HarmonizedCalendarRepository repo;
